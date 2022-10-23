@@ -1,0 +1,66 @@
+.container {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  height: 100vh;
+  .left {
+    background: #fbfbfb;
+    border-right: 1px solid #eaeaea;
+    .topBar {
+      display: grid;
+      gap: 25px;
+      margin-bottom: 14px;
+      margin-top: 21px;
+      padding: 0 10px;
+      .profileLink {
+        justify-self: flex-end;
+        margin: 0;
+        color: #999999;
+        font-family: var(--Inter);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 12px;
+        text-decoration: none;
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+      .serchContainer {
+        width: 100%;
+        display: grid;
+        justify-content: center;
+        .serchField {
+          width: 290px;
+          height: 32px;
+          background: #efefef;
+          border-radius: 5px;
+          border: none;
+          outline: none;
+          &::placeholder {
+            font-family: var(--Inter);
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 12px;
+            text-align: center;
+            color: #999999;
+          }
+        }
+      }
+    }
+  }
+  .right {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    .text {
+      font-family: var(--Inter);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 12px;
+      color: #999999;
+    }
+  }
+}
