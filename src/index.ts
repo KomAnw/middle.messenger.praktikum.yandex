@@ -1,4 +1,4 @@
 import "normalize.css";
-import App from "./components/App/App";
+import App from "./App/App";
 
 App.bootstrap();

@@ -15,11 +15,12 @@ const InputHandler = (selector: string) => (node: Element) => {
   element?.setAttribute("value", "");
 };
 
-const Input = ({ type, placeholderText }: InputProps) => {
+const Input = ({ type, name, placeholderText }: InputProps) => {
   const { input, wrapper, placeholder } = styles;
   const script = InputHandler(input);
   const componentData = {
     type,
+    name,
     placeholder: placeholderText,
     className: { wrapper, input, placeholder },
   };

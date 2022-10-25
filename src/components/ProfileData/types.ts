@@ -3,4 +3,5 @@ export type ProfileDataProps = {
   data?: string;
   disabled?: "disabled";
   type?: "password" | "text";
+  inputName: string;
 };

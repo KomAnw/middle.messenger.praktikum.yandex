@@ -3,7 +3,13 @@ import * as styles from "./styles.module.scss";
 import Component from "src/modules/component/Component";
 import { ProfileDataProps } from "./types";
 
-const ProfileData = ({ fieldName, data = "", disabled, type = "text" }: ProfileDataProps) => {
+const ProfileData = ({
+  fieldName,
+  data = "",
+  inputName,
+  disabled,
+  type = "text",
+}: ProfileDataProps) => {
   const { wrapper, container, name, input, divider } = styles;
   const componentData = {
     fieldName,
@@ -11,6 +17,7 @@ const ProfileData = ({ fieldName, data = "", disabled, type = "text" }: ProfileD
     value: data,
     disabled,
     type,
+    inputName,
     className: { wrapper, container, name, input, divider },
   };
 

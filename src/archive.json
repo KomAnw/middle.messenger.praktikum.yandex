@@ -23,7 +23,7 @@
   "errorPages": {
     "link": {
       "text": "Назад к чатам",
-      "url": "#"
+      "url": "/chat"
     },
     "client": {
       "error": "404",

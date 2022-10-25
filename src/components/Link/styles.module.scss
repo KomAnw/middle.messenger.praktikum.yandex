@@ -9,6 +9,10 @@
   font-size: 13px;
   line-height: 12px;
   text-decoration: none;
+  outline: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;

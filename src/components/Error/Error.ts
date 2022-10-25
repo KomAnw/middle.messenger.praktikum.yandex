@@ -20,12 +20,4 @@ const Error = ({ error, errorMessage }: ErrorProps) => {
   return new Component({ template, componentData, nestedComponents }).createComponent();
 };
 
-export const ServerError = Error({
-  error: archive.errorPages.server.error,
-  errorMessage: archive.errorPages.server.description,
-});
-
-export const ClientError = Error({
-  error: archive.errorPages.client.error,
-  errorMessage: archive.errorPages.client.description,
-});
+export default Error;

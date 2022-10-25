@@ -1,17 +1,20 @@
 # Messanger App
 
-## 🔗 Links
+**О проекте:** это онлайн мессенджер.  
+**Функционал:** регистрация, авторизация, отправка сообщений/файлов, просмотр истории сообщений, редактирование профиля, смена пароля и аватара.  
+**Что интересного:** весь функционал разработан с использованием нативного JS (с использованием TS), иными словами без фреймворков. Архитектура и структура исполнена в компонентном подходе. Также реализован собственный шаблонизатор. Раздача статики через Express.
 
-[netlify](https://sweet-messanger.netlify.app/)
+## Tech Stack
 
-[pull request](https://github.com/KomAnw/middle.messenger.praktikum.yandex/pull/1)
+**Client:** Html, Sass, Typescript, Parcel  
+**Server:** Node, Express
 
 ## Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://github.com/KomAnw/middle.messenger.praktikum.yandex
+  git clone https://github.com/KomAnw/messanger
 ```
 
 Install dependencies
@@ -20,8 +23,28 @@ Install dependencies
   yarn
 ```
 
-Start the app
+Start the dev varsion:
 
 ```bash
-  npm run start
+  yarn start
 ```
+
+Start the optimized (prod) version:
+
+```bash
+  yarn build
+```
+
+Start deploy:
+
+```bash
+  yarn deploy
+```
+
+## Demo
+
+[Netlify](https://sweet-messanger.netlify.app/)
+
+## 🔗 Links
+
+[pull request](https://github.com/KomAnw/messanger/pull/3)
