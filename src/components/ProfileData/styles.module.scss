@@ -3,31 +3,36 @@
   width: 800px;
   margin: 0 auto;
   gap: 10px;
+
   .container {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     justify-content: space-between;
+
     .name {
       width: max-content;
-      font-family: var(--Inter);
+      font-family: var(--inter);
       font-style: normal;
       font-weight: 500;
       font-size: 13px;
       line-height: 13px;
-      color: var(--Black);
+      color: var(--black);
       margin: 0;
     }
+
     .input {
       width: max-content;
       border: none;
       outline: none;
       text-align: end;
-      color: var(--Grey);
+      color: var(--grey);
+
       &:disabled {
         background: transparent;
       }
     }
   }
+
   .divider {
     width: 100%;
     background: #eaeaea;

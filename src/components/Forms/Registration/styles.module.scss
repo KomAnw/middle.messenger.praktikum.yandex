@@ -2,21 +2,22 @@
   display: grid;
   grid-template-rows: repeat(3, min-content);
   min-width: 400px;
-  padding: 50px 30px 30px 30px;
+  padding: 50px 30px 30px;
   margin: 0 auto;
-  background: var(--White);
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  background: var(--white);
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
   border-radius: 12px;
   box-sizing: border-box;
+
   .title {
     margin: 0;
     text-align: center;
-    font-family: var(--Inter);
+    font-family: var(--inter);
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 20px;
-    color: var(--Black);
+    color: var(--black);
   }
 
   .form {

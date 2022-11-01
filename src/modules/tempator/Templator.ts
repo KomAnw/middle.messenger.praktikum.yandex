@@ -1,4 +1,4 @@
-import parseTemplate from "./parseTemplate";
+import parseTemplate from './parseTemplate';
 
 class Templator {
   private TEMPLATE_REGEXP = /\{\{(.*?)\}\}/gi;
@@ -16,7 +16,7 @@ class Templator {
   }
 
   private compileTemplate(data: any) {
-    const tempateWitoutScript = this.template.replace(this.SCRIPT_REGEXP, "");
+    const tempateWitoutScript = this.template.replace(this.SCRIPT_REGEXP, '');
     const matchedVariables = [...tempateWitoutScript.matchAll(this.TEMPLATE_REGEXP)];
 
     return matchedVariables.reduce((template, current) => {

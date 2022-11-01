@@ -1,7 +1,7 @@
 export type ProfileDataProps = {
   fieldName: string;
   data?: string;
-  disabled?: "disabled";
-  type?: "password" | "text";
+  disabled?: 'disabled';
+  type?: 'password' | 'text';
   inputName: string;
 };

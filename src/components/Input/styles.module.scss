@@ -4,20 +4,19 @@
   .input {
     width: 100%;
     border: none;
-    border-bottom: 2px solid var(--Grey);
+    border-bottom: 2px solid var(--grey);
     padding-top: 12px;
     padding-bottom: 8px;
     outline: none;
     transition: all 0.3s linear;
-
-    font-family: var(--Inter);
+    font-family: var(--inter);
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
 
     &:hover {
-      border-bottom: 2px solid var(--Blue);
+      border-bottom: 2px solid var(--blue);
     }
 
     &:focus + .placeholder {
@@ -28,7 +27,7 @@
       line-height: 9px;
     }
 
-    &:not([value=""]) + .placeholder {
+    &:not([value='']) + .placeholder {
       top: 0;
       left: 0;
       font-size: 9px;
@@ -40,10 +39,9 @@
     position: absolute;
     top: 13px;
     left: 0;
-    color: var(--Grey);
+    color: var(--grey);
     transition: all 0.3s linear;
-
-    font-family: var(--Inter);
+    font-family: var(--inter);
     font-style: normal;
     font-weight: 500;
     font-size: 13px;

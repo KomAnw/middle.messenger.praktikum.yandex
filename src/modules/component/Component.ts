@@ -1,5 +1,5 @@
-import CustomHTML from "../customHTML/customHTML";
-import Templator from "../tempator/Templator";
+import CustomHTML from '../customHTML/customHTML';
+import Templator from '../tempator/Templator';
 
 type ComponentProps = {
   template: string;
@@ -14,7 +14,7 @@ class Component {
   private nestedComponents;
   private script;
 
-  constructor({ template, componentData, nestedComponents, script }: ComponentProps) {
+  constructor({template, componentData, nestedComponents, script}: ComponentProps) {
     this.template = template;
     this.componentData = componentData;
     this.nestedComponents = nestedComponents;
@@ -33,8 +33,8 @@ class Component {
   }
 
   private generateMarkup(compiledTemplate: string) {
-    const node = new DOMParser().parseFromString(compiledTemplate, "text/html").body
-      .firstElementChild!;
+    const node = new DOMParser().parseFromString(compiledTemplate, 'text/html').body
+        .firstElementChild!;
 
     if (this.nestedComponents) {
       return this.replaceNodesToComponents(node);
@@ -44,7 +44,7 @@ class Component {
   }
 
   private replaceNodesToComponents(node: Element) {
-    const components = node.querySelectorAll("component");
+    const components = node.querySelectorAll('component');
     components?.forEach((oldComponent) => {
       const componentId = oldComponent.id;
       const newComponent = this.nestedComponents[componentId];

@@ -3,18 +3,20 @@
   justify-items: center;
   max-width: 800px;
   margin: 0 auto;
+
   .top {
     display: grid;
     justify-content: center;
     justify-items: center;
     gap: 20px;
+
     .profileName {
-      font-family: var(--Inter);
+      font-family: var(--inter);
       font-style: normal;
       font-weight: 600;
       font-size: 16px;
       line-height: 16px;
-      color: var(--Black);
+      color: var(--black);
       margin: 0;
     }
   }
@@ -29,12 +31,14 @@
     display: grid;
     gap: 21px;
     justify-content: center;
+
     &:not([disabled]) {
       display: none;
     }
+
     .common {
       padding: 0;
-      font-family: var(--Inter);
+      font-family: var(--inter);
       font-style: normal;
       font-weight: 500;
       font-size: 13px;
@@ -44,14 +48,17 @@
       cursor: pointer;
       width: max-content;
     }
+
     .button {
       display: grid;
       gap: 10px;
+
       .change {
-        color: var(--Blue);
+        color: var(--blue);
         width: 800px;
         text-align: left;
       }
+
       .divider {
         width: 100%;
         background: #eaeaea;
@@ -59,8 +66,9 @@
         margin: 0;
       }
     }
+
     .exit {
-      color: #ff0000;
+      color: #f00;
       width: 800px;
       text-align: left;
     }

@@ -1,37 +1,37 @@
-import archive from "src/archive.json";
+import archive from 'src/archive.json';
 
 export const email = {
-  type: "email",
+  type: 'email',
   placeholderText: archive.forms.registration.email,
 };
 
 export const login = {
-  type: "text",
+  type: 'text',
   placeholderText: archive.forms.registration.login,
 };
 
 export const firstName = {
-  type: "text",
+  type: 'text',
   placeholderText: archive.forms.registration.firstName,
 };
 
 export const secondName = {
-  type: "text",
+  type: 'text',
   placeholderText: archive.forms.registration.secondName,
 };
 
 export const phone = {
-  type: "tel",
+  type: 'tel',
   placeholderText: archive.forms.registration.phone,
 };
 
 export const password = {
-  type: "password",
+  type: 'password',
   placeholderText: archive.forms.registration.password,
 };
 
 export const secondPassword = {
-  type: "password",
+  type: 'password',
   placeholderText: archive.forms.registration.secondPassword,
 };
 
@@ -40,6 +40,6 @@ export const button = {
 };
 
 export const link = {
-  url: "#",
+  url: '#',
   text: archive.forms.registration.link,
 };

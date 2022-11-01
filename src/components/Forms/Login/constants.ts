@@ -1,11 +1,11 @@
-import archive from "src/archive.json";
+import archive from 'src/archive.json';
 
 export const login = {
-  type: "text",
+  type: 'text',
   placeholderText: archive.forms.login.login,
 };
 export const password = {
-  type: "password",
+  type: 'password',
   placeholderText: archive.forms.login.password,
 };
 
@@ -14,6 +14,6 @@ export const button = {
 };
 
 export const link = {
-  url: "#",
+  url: '#',
   text: archive.forms.login.link,
 };

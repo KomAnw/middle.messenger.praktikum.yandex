@@ -1,4 +1,4 @@
-import { ProfileAvatarProps } from "src/components/ProfileAvatar/types";
+import {ProfileAvatarProps} from 'src/components/ProfileAvatar/types';
 
 export type FieldsProps = {
   fieldName: string;
@@ -10,5 +10,5 @@ export type ProfileCommonProps = {
   name: string;
   avatarProps: ProfileAvatarProps;
   fieldsProps: FieldsProps[];
-  disabled?: "disabled";
+  disabled?: 'disabled';
 };
