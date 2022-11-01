@@ -1,0 +1,30 @@
+<main class="{{className.container}}">
+  <div class="{{className.left}}">
+    <div class="{{className.topBar}}">
+      <button
+        class="{{className.profileLink}}"
+        onclick="window.history.pushState({}, null, '/profile');"
+      >
+        Профиль
+      </button>
+      <div class="{{className.serchContainer}}">
+        <input type="text" class="{{className.serchField}}" placeholder="Поиск" />
+      </div>
+    </div>
+    <div class="{{className.chats}}">
+      <component id="Chats"></component>
+    </div>
+  </div>
+  <div class="{{className.right}}">
+    <p class="{{className.text}}">Выберите чат чтобы отправить сообщение</p>
+    <div class="{{className.messageContainer}}">
+      <img
+        src="../../../static/assets//chat/file.png"
+        alt="Прикрепить файл"
+        class="{{className.file}}"
+      />
+      <input type="text" class="{{className.message}}" placeholder="Сообщение" />
+      <button class="{{className.sendButton}}">Отправить</button>
+    </div>
+  </div>
+</main>

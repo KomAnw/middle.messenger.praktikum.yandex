@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    // default options
+    "baseUrl": "./",
+    "paths": {
+      "src": ["./src"]
+    },
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "ES6", // Specify ECMAScript target version
+    "moduleResolution": "node", // Resolve modules using Node.js style
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "skipLibCheck": true, // Skip type checking of all declaration files
+    "esModuleInterop": true, // Disables namespace imports (import * as fs from "fs") and enables CJS/AMD/UMD style imports (import fs from "fs")
+    "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file
+    // strict params
+    "alwaysStrict": true, // involves adding the line "use strict" to every compiled file.
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
+    //"strict": true, // Enable all strict type checking options, but it's not clear which checks are enabled
+
+    // CompilerOptions options that are not needed in every project
+    "allowJs": true, // Allow JavaScript files to be compiled
+    "resolveJsonModule": true, // Allows you to enable the ability to import *.json files.
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "build"] // The files to not type check
+}

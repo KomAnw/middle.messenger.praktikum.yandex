@@ -1,0 +1,52 @@
+.wrapper {
+  position: relative;
+
+  .input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--Grey);
+    padding-top: 12px;
+    padding-bottom: 8px;
+    outline: none;
+    transition: all 0.3s linear;
+
+    font-family: var(--Inter);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+
+    &:hover {
+      border-bottom: 2px solid var(--Blue);
+    }
+
+    &:focus + .placeholder {
+      transition: all 0.3s linear;
+      top: 0;
+      left: 0;
+      font-size: 9px;
+      line-height: 9px;
+    }
+
+    &:not([value=""]) + .placeholder {
+      top: 0;
+      left: 0;
+      font-size: 9px;
+      line-height: 9px;
+    }
+  }
+
+  .placeholder {
+    position: absolute;
+    top: 13px;
+    left: 0;
+    color: var(--Grey);
+    transition: all 0.3s linear;
+
+    font-family: var(--Inter);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+  }
+}

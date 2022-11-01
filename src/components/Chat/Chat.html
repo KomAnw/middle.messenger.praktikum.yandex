@@ -1,0 +1,21 @@
+<section class="{{className.container}}">
+  <div class="{{className.left}}">
+    <div class="{{className.topBar}}">
+      <button
+        class="{{className.profileLink}}"
+        onclick="window.history.pushState({}, null, '/profile');"
+      >
+        Профиль
+      </button>
+      <div class="{{className.serchContainer}}">
+        <input type="text" class="{{className.serchField}}" placeholder="Поиск" />
+      </div>
+    </div>
+    <div class="{{className.chats}}">
+      <component id="Chats"></component>
+    </div>
+  </div>
+  <div class="{{className.right}}">
+    <p class="{{className.text}}">Выберите чат чтобы отправить сообщение</p>
+  </div>
+</section>

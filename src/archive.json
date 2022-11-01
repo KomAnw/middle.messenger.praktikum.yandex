@@ -1,0 +1,37 @@
+{
+  "forms": {
+    "login": {
+      "title": "Вход",
+      "login": "Логин",
+      "password": "Пароль",
+      "button": "Авторизоваться",
+      "link": "Нет аккаунта?"
+    },
+    "registration": {
+      "title": "Регистрация",
+      "email": "Почта",
+      "login": "Логин",
+      "firstName": "Имя",
+      "secondName": "Фамилия",
+      "phone": "Телефон",
+      "password": "Пароль",
+      "secondPassword": "Пароль (еще раз)",
+      "button": "Зарегистрироваться",
+      "link": "Войти"
+    }
+  },
+  "errorPages": {
+    "link": {
+      "text": "Назад к чатам",
+      "url": "/chat"
+    },
+    "client": {
+      "error": "404",
+      "description": "Такой страницы нет... &#128577;"
+    },
+    "server": {
+      "error": "500",
+      "description": "Мы уже фиксим...! &#128591;"
+    }
+  }
+}

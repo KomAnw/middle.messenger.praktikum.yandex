@@ -1,0 +1,68 @@
+.profile {
+  display: grid;
+  justify-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  .top {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    gap: 20px;
+    .profileName {
+      font-family: var(--Inter);
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 16px;
+      color: var(--Black);
+      margin: 0;
+    }
+  }
+
+  .fieldsList {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+
+  .buttonsContainer {
+    display: grid;
+    gap: 21px;
+    justify-content: center;
+    &:not([disabled]) {
+      display: none;
+    }
+    .common {
+      padding: 0;
+      font-family: var(--Inter);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 13px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: max-content;
+    }
+    .button {
+      display: grid;
+      gap: 10px;
+      .change {
+        color: var(--Blue);
+        width: 800px;
+        text-align: left;
+      }
+      .divider {
+        width: 100%;
+        background: #eaeaea;
+        opacity: 0.24;
+        margin: 0;
+      }
+    }
+    .exit {
+      color: #ff0000;
+      width: 800px;
+      text-align: left;
+    }
+  }
+}

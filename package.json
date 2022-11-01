@@ -1,0 +1,35 @@
+{
+  "name": "messanger",
+  "version": "1.0.0",
+  "description": "",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "clean:output": "rimraf dist",
+    "open": "start http://localhost:3000",
+    "server": "node server.js",
+    "start": "yarn run clean:output && parcel index.html -p 3000 --open",
+    "build": "yarn run clean:output && parcel build index.html && yarn run open && yarn run server ",
+    "deploy": "yarn run clean:output && parcel build index.html"
+  },
+  "alias": {
+    "src": "./src"
+  },
+  "engines": {
+    "node": ">=12.0.0 <17.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "2.7.0",
+    "@parcel/transformer-sass": "2.7.0",
+    "parcel": "2.7.0",
+    "typescript": "4.8.4",
+    "rimraf": "3.0.2",
+    "@types/express": "4.17.14"
+  },
+  "dependencies": {
+    "normalize.css": "8.0.1",
+    "express": "4.18.2"
+  }
+}
