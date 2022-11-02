@@ -1,31 +1,38 @@
-import template from 'bundle-text:./Input.html';
-import * as styles from './styles.module.scss';
-import {InputProps} from './types';
-import Component from 'src/modules/component/Component';
+import template from "bundle-text:./Input.html";
+import * as styles from "./styles.module.scss";
+import { InputProps } from "./types";
+import Component from "src/modules/Component/Component";
 
-const InputHandler = (selector: string) => (node: Element) => {
-  const element = node.querySelector(`.${selector}`);
-  element &&
-    element.addEventListener('keyup', (event: Event) => {
+class InputComponent extends Component {
+  constructor(template: string, props: any) {
+    super(template, props);
+  }
+
+  inputAnimationHandler() {
+    const element = this.getNode?.querySelector(`input`);
+    element?.addEventListener("keyup", (event: Event) => {
       const target = event.target as HTMLInputElement;
-      element.setAttribute('value', target.value);
+      element.setAttribute("value", target.value);
     });
 
-  // after build parcel remove imput value if it empty
-  element?.setAttribute('value', '');
-};
+    // after build parcel remove imput value if it empty
+    element?.setAttribute("value", "");
+  }
 
-const Input = ({type, name, placeholderText}: InputProps) => {
-  const {input, wrapper, placeholder} = styles;
-  const script = InputHandler(input);
+  render(): void {
+    this.inputAnimationHandler();
+  }
+}
+
+const Input = ({ type, name, placeholderText }: InputProps) => {
   const componentData = {
     type,
     name,
     placeholder: placeholderText,
-    className: {wrapper, input, placeholder},
+    className: { ...styles },
   };
 
-  return new Component({template, componentData, script}).createComponent();
+  return new InputComponent(template, componentData);
 };
 
 export default Input;

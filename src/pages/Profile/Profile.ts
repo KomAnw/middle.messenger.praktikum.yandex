@@ -1,23 +1,28 @@
-import template from 'bundle-text:./Profile.html';
-import * as styles from './styles.module.scss';
-import Component from 'src/modules/component/Component';
-import ProfileAvatar from '../../components/ProfileAvatar/ProfileAvatar';
-import ProfileData from 'src/components/ProfileData/ProfileData';
-import {FieldsProps, ProfileCommonProps} from './types';
-import Button from '../../components/Button/Button';
+import template from "bundle-text:./Profile.html";
+import * as styles from "./styles.module.scss";
+import Component from "src/modules/component1/Component";
+import ProfileAvatar from "../../components/ProfileAvatar/ProfileAvatar";
+import ProfileData from "src/components/ProfileData/ProfileData";
+import { FieldsProps, ProfileCommonProps } from "./types";
+import Button from "../../components/Button/Button";
 
-const FiledsList = (fieldsProps: FieldsProps[], disabled?: 'disabled') => {
+const FiledsList = (fieldsProps: FieldsProps[], disabled?: "disabled") => {
   const container = document.createDocumentFragment();
-  const components = fieldsProps.map(({fieldName, data, inputName}) =>
-    ProfileData({fieldName, data, disabled, inputName})
+  const components = fieldsProps.map(({ fieldName, data, inputName }) =>
+    ProfileData({ fieldName, data, disabled, inputName })
   );
   components.forEach((elem) => container.appendChild(elem));
   return container;
 };
 
-const Profile = ({name = 'Имя', avatarProps, fieldsProps, disabled}: ProfileCommonProps) => {
+const Profile = ({
+  name = "Имя",
+  avatarProps,
+  fieldsProps,
+  disabled,
+}: ProfileCommonProps) => {
   const Avatar = ProfileAvatar(avatarProps);
-  const ButtonComponent = !disabled && Button({text: 'Сохранить'});
+  const ButtonComponent = !disabled && Button({ text: "Сохранить" });
   const {
     profile,
     top,
@@ -49,10 +54,14 @@ const Profile = ({name = 'Имя', avatarProps, fieldsProps, disabled}: ProfileC
   const nestedComponents = {
     Avatar,
     FieldsList: FiledsList(fieldsProps, disabled),
-    Button: disabled ? '' : ButtonComponent,
+    Button: disabled ? "" : ButtonComponent,
   };
 
-  return new Component({template, componentData, nestedComponents}).createComponent();
+  return new Component({
+    template,
+    componentData,
+    nestedComponents,
+  }).createComponent();
 };
 
 export default Profile;

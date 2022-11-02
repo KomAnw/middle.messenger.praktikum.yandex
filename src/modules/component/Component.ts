@@ -1,57 +1,102 @@
-import CustomHTML from '../customHTML/customHTML';
-import Templator from '../tempator/Templator';
-
-type ComponentProps = {
-  template: string;
-  componentData: any;
-  nestedComponents?: any;
-  script?: any;
-};
+import CustomHTMLComponent from "../CustomHTMLComponent/CustomHTMLComponent";
+import Templator from "../tempator/Templator";
 
 class Component {
-  private template;
-  private componentData;
-  private nestedComponents;
-  private script;
+  private wrapper: HTMLElement | null;
+  private props: any;
+  private templator: Templator;
+  private compiledTemplate: string;
 
-  constructor({template, componentData, nestedComponents, script}: ComponentProps) {
-    this.template = template;
-    this.componentData = componentData;
-    this.nestedComponents = nestedComponents;
-    this.script = script;
+  constructor(template: string, props: any) {
+    this.props = this.makePropsProxy(props);
+    this.compiledTemplate = "";
+    this.wrapper = null;
+    this.templator = new Templator(template);
+    this._init();
   }
 
-  public createComponent() {
-    const compiledTemplate = new Templator(this.template).compile(this.componentData);
-    const markup = this.generateMarkup(compiledTemplate);
-
-    if (this.script) {
-      return this.script && new CustomHTML(markup, this.script);
-    }
-
-    return markup;
+  get getNode(): HTMLElement {
+    return this.wrapper as HTMLElement;
   }
 
-  private generateMarkup(compiledTemplate: string) {
-    const node = new DOMParser().parseFromString(compiledTemplate, 'text/html').body
-        .firstElementChild!;
-
-    if (this.nestedComponents) {
-      return this.replaceNodesToComponents(node);
-    }
-
-    return node;
+  get getProps() {
+    return this.props;
   }
 
-  private replaceNodesToComponents(node: Element) {
-    const components = node.querySelectorAll('component');
-    components?.forEach((oldComponent) => {
-      const componentId = oldComponent.id;
-      const newComponent = this.nestedComponents[componentId];
-      oldComponent.replaceWith(newComponent);
+  private createTemplate() {
+    this.compiledTemplate = this.templator.compile(this.props);
+  }
+
+  private _init() {
+    this.createTemplate();
+    this._render();
+  }
+
+  private dispatchComponentDidMount() {
+    this.componentDidMount();
+  }
+
+  componentDidMount() {}
+
+  private _componentDidUpdate(oldProps, newProps) {
+    this.createTemplate();
+    this._render();
+    this.componentDidUpdate(oldProps, newProps);
+  }
+
+  componentDidUpdate(oldProps, newProps) {
+    console.log(oldProps, newProps);
+  }
+
+  private makePropsProxy(props: any) {
+    const callCDU = this._componentDidUpdate.bind(this);
+    return new Proxy(props, {
+      get(target, prop) {
+        const value = target[prop];
+        return typeof value === "function" ? value.bind(target) : value;
+      },
+      set(target, prop, value) {
+        const oldProps = { ...target };
+        const newProps = target;
+        target[prop] = value;
+        callCDU(oldProps, newProps);
+        return true;
+      },
+      deleteProperty() {
+        throw new Error("Нет доступа");
+      },
     });
-    return node;
   }
+
+  setProps = (nextProps: any) => {
+    if (!nextProps) {
+      return;
+    }
+
+    Object.assign(this.props, nextProps);
+  };
+
+  protected replaceNodesToComponents(nestedComponents: {
+    [key: string]: Element;
+  }) {
+    const components = this.wrapper?.querySelectorAll("component");
+
+    components?.forEach((component) => {
+      const componentId = component.id;
+      const newComponent = nestedComponents[componentId];
+      component.replaceWith(newComponent);
+    });
+  }
+
+  private _render() {
+    this.wrapper = new CustomHTMLComponent(
+      this.dispatchComponentDidMount.bind(this)
+    );
+    this.wrapper.insertAdjacentHTML("beforeend", this.compiledTemplate);
+    this.render();
+  }
+
+  render() {}
 }
 
 export default Component;

@@ -1,11 +1,27 @@
-import template from 'bundle-text:./ChatField.html';
-import * as styles from './styles.module.scss';
-import Component from 'src/modules/component/Component';
-import {ChatFieldProps} from './types';
+import template from "bundle-text:./ChatField.html";
+import * as styles from "./styles.module.scss";
+import Component from "src/modules/component1/Component";
+import { ChatFieldProps } from "./types";
 
-const ChatField = ({personName, personMessage, time, unreadMessages}: ChatFieldProps) => {
-  const {container, left, avatar, person, name, message, right, timer, unread, divider, wrapper} =
-    styles;
+const ChatField = ({
+  personName,
+  personMessage,
+  time,
+  unreadMessages,
+}: ChatFieldProps) => {
+  const {
+    container,
+    left,
+    avatar,
+    person,
+    name,
+    message,
+    right,
+    timer,
+    unread,
+    divider,
+    wrapper,
+  } = styles;
   const componentData = {
     className: {
       container,
@@ -26,7 +42,7 @@ const ChatField = ({personName, personMessage, time, unreadMessages}: ChatFieldP
     unreadMessages: unreadMessages,
   };
 
-  return new Component({template, componentData}).createComponent();
+  return new Component({ template, componentData }).createComponent();
 };
 
 export default ChatField;
