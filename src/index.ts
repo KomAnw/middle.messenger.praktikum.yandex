@@ -1,5 +1,4 @@
 import "normalize.css";
-import App from "./App/App";
-import Login from "./pages/Login/Login";
+import App from "./app/App";
 
 App.bootstrap();
