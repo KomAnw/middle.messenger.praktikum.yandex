@@ -1,20 +1,20 @@
-import template from "bundle-text:./ChangePassword.html";
-import * as styles from "./styles.module.scss";
-import ProfileAvatar from "../../components/ProfileAvatar/ProfileAvatar";
-import ProfileData from "src/components/ProfileData/ProfileData";
-import Button, { ButtonComponent } from "../../components/Button/Button";
-import { FieldsProps } from "../Profile/types";
-import { ProfileCommonProps } from "../Profile/types";
-import Component from "src/modules/Component";
-import { NestedComponents, onSubmitFomsHandler } from "src/utils";
+import template from 'bundle-text:./ChangePassword.html';
+import * as styles from './styles.module.scss';
+import ProfileAvatar from '../../components/ProfileAvatar/ProfileAvatar';
+import ProfileData from 'src/components/ProfileData/ProfileData';
+import Button, {ButtonComponent} from '../../components/Button/Button';
+import {FieldsProps} from '../Profile/types';
+import {ProfileCommonProps} from '../Profile/types';
+import Component from 'src/modules/Component';
+import {NestedComponents, onSubmitFomsHandler} from 'src/utils';
 
-const FiledsList = (fieldsProps: FieldsProps[], disabled?: "disabled") =>
+const FiledsList = (fieldsProps: FieldsProps[], disabled?: 'disabled') =>
   fieldsProps.reduce(
-    (accumulator, props) => ({
-      ...accumulator,
-      [props.inputName]: ProfileData({ disabled, ...props }),
-    }),
-    {}
+      (accumulator, props) => ({
+        ...accumulator,
+        [props.inputName]: ProfileData({disabled, ...props}),
+      }),
+      {}
   );
 
 class ChangePasswordComponent extends Component {
@@ -34,18 +34,18 @@ class ChangePasswordComponent extends Component {
 }
 
 const ChangePassword = ({
-  name = "Имя",
+  name = 'Имя',
   avatarProps,
   fieldsProps,
 }: ProfileCommonProps) => {
   const componentData = {
-    className: { ...styles },
+    className: {...styles},
     name,
     avatarProps,
     fieldsProps,
     nestedComponents: {
       Avatar: ProfileAvatar(avatarProps),
-      Button: Button({ text: "Сохранить" }),
+      Button: Button({text: 'Сохранить'}),
       ...FiledsList(fieldsProps),
     },
   };

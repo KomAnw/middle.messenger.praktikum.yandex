@@ -1,9 +1,9 @@
-import template from "bundle-text:./Error.html";
-import * as styles from "./styles.module.scss";
-import archive from "src/archive.json";
-import { ErrorProps } from "./types";
-import Link from "../Link/Link";
-import Component from "src/modules/Component";
+import template from 'bundle-text:./Error.html';
+import * as styles from './styles.module.scss';
+import archive from 'src/archive.json';
+import {ErrorProps} from './types';
+import Link from '../Link/Link';
+import Component from 'src/modules/Component';
 
 const linkProps = {
   url: archive.errorPages.link.url,
@@ -15,12 +15,12 @@ class ErrorComponent extends Component {
   }
 }
 
-const Error = ({ error, errorMessage }: ErrorProps) => {
+const Error = ({error, errorMessage}: ErrorProps) => {
   const componentData = {
     error,
     errorMessage,
-    className: { ...styles },
-    nestedComponents: { link: Link(linkProps) },
+    className: {...styles},
+    nestedComponents: {link: Link(linkProps)},
   };
 
   return new ErrorComponent(template, componentData).getNode;

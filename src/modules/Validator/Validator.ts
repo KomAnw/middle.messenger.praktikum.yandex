@@ -1,10 +1,10 @@
-import { ValidationValues } from "./types";
+import {ValidationValues} from './types';
 import {
   errors,
   mailRegExp,
   numberRegExp,
   phoneRegExp,
-} from "src/components/constants";
+} from 'src/components/constants';
 
 export class Validator {
   private errors: { [key: string]: string };
@@ -18,11 +18,11 @@ export class Validator {
   }
 
   public checkValidation(
-    input: HTMLInputElement,
-    validationRules: ValidationValues
+      input: HTMLInputElement,
+      validationRules: ValidationValues
   ) {
     const value = input.value;
-    const { required, email, min, max, witoutNumbers, onlyNumbers, phone } =
+    const {required, email, min, max, witoutNumbers, onlyNumbers, phone} =
       validationRules;
     const {
       requiredFiled,

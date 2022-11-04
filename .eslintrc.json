@@ -5,6 +5,10 @@
   "rules": {
     "max-len": [1, 100],
     "linebreak-style": 0,
-    "new-cap": 0
+    "new-cap": 0,
+    "require-jsdoc": 0,
+    "prefer-rest-params": 1,
+    "guard-for-in": 0,
+    "prefer-promise-reject-errors": 0
   }
 }

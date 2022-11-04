@@ -1,14 +1,8 @@
-import template from "bundle-text:./Input.html";
-import * as styles from "./styles.module.scss";
-import { InputProps } from "./types";
-import Component from "src/modules/Component/Component";
-import {
-  errors,
-  mailRegExp,
-  numberRegExp,
-  phoneRegExp,
-} from "src/components/constants";
-import { Validator } from "src/modules/Validator/Validator";
+import template from 'bundle-text:./Input.html';
+import * as styles from './styles.module.scss';
+import {InputProps} from './types';
+import Component from 'src/modules/Component/Component';
+import {Validator} from 'src/modules/Validator/Validator';
 
 export class InputComponent extends Component {
   public isValid: boolean;
@@ -19,11 +13,11 @@ export class InputComponent extends Component {
   constructor(template: string, props: any) {
     super(template, props);
     this.isValid = false;
-    this.input = this.getNode.querySelector("input")!;
-    this.errorField = this.getNode.querySelector("p")!;
+    this.input = this.getNode.querySelector('input')!;
+    this.errorField = this.getNode.querySelector('p')!;
     this.validator = new Validator(
-      this.makeErorr.bind(this),
-      this.removeErorr.bind(this)
+        this.makeErorr.bind(this),
+        this.removeErorr.bind(this)
     );
   }
 
@@ -36,11 +30,11 @@ export class InputComponent extends Component {
   }
 
   componentDidMount(): void {
-    const { validationRules } = this.getProps;
+    const {validationRules} = this.getProps;
     validationRules &&
-      this.input.addEventListener("focus", () => this.runValidation());
+      this.input.addEventListener('focus', () => this.runValidation());
     validationRules &&
-      this.input.addEventListener("blur", () => this.runValidation());
+      this.input.addEventListener('blur', () => this.runValidation());
   }
 
   runValidation() {
@@ -49,9 +43,9 @@ export class InputComponent extends Component {
 
   inputAnimationHandler() {
     const element = this.getNode.querySelector(`input`);
-    element?.addEventListener("keyup", (event: Event) => {
+    element?.addEventListener('keyup', (event: Event) => {
       const target = event.target as HTMLInputElement;
-      element.setAttribute("value", target.value);
+      element.setAttribute('value', target.value);
     });
   }
 
@@ -82,7 +76,7 @@ const Input = ({
     type,
     name,
     placeholder: placeholderText,
-    className: { ...styles },
+    className: {...styles},
     validationRules,
   };
 

@@ -1,5 +1,5 @@
-import CustomHTMLComponent from "../CustomHTMLComponent/CustomHTMLComponent";
-import Templator from "../tempator/Templator";
+import CustomHTMLComponent from '../CustomHTMLComponent/CustomHTMLComponent';
+import Templator from '../tempator/Templator';
 
 class Component {
   private wrapper: HTMLElement | null;
@@ -9,7 +9,7 @@ class Component {
 
   constructor(template: string, props: any) {
     this.props = this.makePropsProxy(props);
-    this.compiledTemplate = "";
+    this.compiledTemplate = '';
     this.wrapper = null;
     this.templator = new Templator(template);
     this._init();
@@ -51,17 +51,17 @@ class Component {
     return new Proxy(props, {
       get(target, prop) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop, value) {
-        const oldProps = { ...target };
+        const oldProps = {...target};
         const newProps = target;
         target[prop] = value;
         callCDU(oldProps, newProps);
         return true;
       },
       deleteProperty() {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       },
     });
   }
@@ -69,9 +69,9 @@ class Component {
   watchChanges() {
     const callback = (mutationsList: MutationRecord[]) => {
       for (const mutation of mutationsList) {
-        const { oldValue, target, type } = mutation;
-        const isInput = target.nodeName === "INPUT";
-        const isAttributeChanged = type === "attributes";
+        const {oldValue, target, type} = mutation;
+        const isInput = target.nodeName === 'INPUT';
+        const isAttributeChanged = type === 'attributes';
         isAttributeChanged &&
           isInput &&
           this.componentDidUpdate(oldValue, (target as HTMLInputElement).value);
@@ -96,7 +96,7 @@ class Component {
   };
 
   private replaceNodesToComponents() {
-    const components = this.wrapper?.querySelectorAll("component");
+    const components = this.wrapper?.querySelectorAll('component');
 
     components?.forEach((customComponent) => {
       const componentId = customComponent.id;
@@ -112,9 +112,9 @@ class Component {
 
   private _render() {
     this.wrapper = new CustomHTMLComponent(
-      this.dispatchComponentDidMount.bind(this)
+        this.dispatchComponentDidMount.bind(this)
     );
-    this.wrapper.insertAdjacentHTML("beforeend", this.compiledTemplate);
+    this.wrapper.insertAdjacentHTML('beforeend', this.compiledTemplate);
     this.props.nestedComponents && this.replaceNodesToComponents();
     this.watchChanges();
     this.render();

@@ -1,9 +1,9 @@
-import template from "bundle-text:./Registration.html";
-import Input from "src/components/Input/Input";
-import Button, { ButtonComponent } from "src/components/Button/Button";
-import archive from "src/archive.json";
-import * as styles from "./styles.module.scss";
-import Link from "src/components/Link/Link";
+import template from 'bundle-text:./Registration.html';
+import Input from 'src/components/Input/Input';
+import Button, {ButtonComponent} from 'src/components/Button/Button';
+import archive from 'src/archive.json';
+import * as styles from './styles.module.scss';
+import Link from 'src/components/Link/Link';
 import {
   button,
   email,
@@ -14,9 +14,9 @@ import {
   phone,
   secondName,
   secondPassword,
-} from "./constants";
-import Component from "src/modules/Component";
-import { NestedComponents, onSubmitFomsHandler } from "src/utils";
+} from './constants';
+import Component from 'src/modules/Component';
+import {NestedComponents, onSubmitFomsHandler} from 'src/utils';
 
 class RegistrationComponent extends Component {
   nestedComponents: NestedComponents;
@@ -36,7 +36,7 @@ class RegistrationComponent extends Component {
 const Registration = () => {
   const componentData = {
     title: archive.forms.registration.title,
-    className: { ...styles },
+    className: {...styles},
     nestedComponents: {
       login: Input(login),
       email: Input(email),

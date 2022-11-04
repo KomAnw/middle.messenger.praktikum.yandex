@@ -1,7 +1,7 @@
-import template from "bundle-text:./Link.html";
-import Component from "src/modules/Component";
-import * as styles from "./styles.module.scss";
-import { LinkProps } from "./types";
+import template from 'bundle-text:./Link.html';
+import Component from 'src/modules/Component';
+import * as styles from './styles.module.scss';
+import {LinkProps} from './types';
 
 export class LinkComponent extends Component {
   constructor(template: string, props: any) {
@@ -9,8 +9,8 @@ export class LinkComponent extends Component {
   }
 
   linkHandler() {
-    this.getNode.addEventListener("click", () =>
-      window.history.pushState({}, "", `${this.getProps.url}`)
+    this.getNode.addEventListener('click', () =>
+      window.history.pushState({}, '', `${this.getProps.url}`)
     );
   }
 
@@ -19,7 +19,7 @@ export class LinkComponent extends Component {
   }
 }
 
-const Link = ({ url, text }: LinkProps) => {
+const Link = ({url, text}: LinkProps) => {
   const componentData = {
     text,
     url,

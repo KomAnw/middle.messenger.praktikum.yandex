@@ -1,19 +1,19 @@
-import template from "bundle-text:./Profile.html";
-import * as styles from "./styles.module.scss";
-import ProfileAvatar from "../../components/ProfileAvatar/ProfileAvatar";
-import ProfileData from "src/components/ProfileData/ProfileData";
-import { FieldsProps, ProfileCommonProps } from "./types";
-import Button, { ButtonComponent } from "../../components/Button/Button";
-import Component from "src/modules/Component";
-import { NestedComponents, onSubmitFomsHandler } from "src/utils";
+import template from 'bundle-text:./Profile.html';
+import * as styles from './styles.module.scss';
+import ProfileAvatar from '../../components/ProfileAvatar/ProfileAvatar';
+import ProfileData from 'src/components/ProfileData/ProfileData';
+import {FieldsProps, ProfileCommonProps} from './types';
+import Button, {ButtonComponent} from '../../components/Button/Button';
+import Component from 'src/modules/Component';
+import {NestedComponents, onSubmitFomsHandler} from 'src/utils';
 
-const FiledsList = (fieldsProps: FieldsProps[], disabled?: "disabled") =>
+const FiledsList = (fieldsProps: FieldsProps[], disabled?: 'disabled') =>
   fieldsProps.reduce(
-    (accumulator, props) => ({
-      ...accumulator,
-      [props.inputName]: ProfileData({ disabled, ...props }),
-    }),
-    {}
+      (accumulator, props) => ({
+        ...accumulator,
+        [props.inputName]: ProfileData({disabled, ...props}),
+      }),
+      {}
   );
 class ProfileComponent extends Component {
   nestedComponents: NestedComponents;
@@ -32,14 +32,14 @@ class ProfileComponent extends Component {
 }
 
 const Profile = ({
-  name = "Имя",
+  name = 'Имя',
   avatarProps,
   fieldsProps,
   disabled,
 }: ProfileCommonProps) => {
-  const ButtonComponent = !disabled && Button({ text: "Сохранить" });
+  const ButtonComponent = !disabled && Button({text: 'Сохранить'});
   const componentData = {
-    className: { ...styles },
+    className: {...styles},
     name,
     disabled,
     avatarProps,

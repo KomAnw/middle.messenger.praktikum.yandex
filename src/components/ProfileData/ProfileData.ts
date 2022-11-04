@@ -1,8 +1,8 @@
-import template from "bundle-text:./ProfileData.html";
-import Component from "src/modules/Component";
-import { Validator } from "src/modules/Validator/Validator";
-import * as styles from "./styles.module.scss";
-import { ProfileDataProps } from "./types";
+import template from 'bundle-text:./ProfileData.html';
+import Component from 'src/modules/Component';
+import {Validator} from 'src/modules/Validator/Validator';
+import * as styles from './styles.module.scss';
+import {ProfileDataProps} from './types';
 
 export class ProfileDataComponent extends Component {
   public isValid: boolean;
@@ -13,11 +13,11 @@ export class ProfileDataComponent extends Component {
   constructor(template: string, props: any) {
     super(template, props);
     this.isValid = false;
-    this.input = this.getNode.querySelector("input")!;
-    this.errorField = this.getNode.querySelector("span")!;
+    this.input = this.getNode.querySelector('input')!;
+    this.errorField = this.getNode.querySelector('span')!;
     this.validator = new Validator(
-      this.makeErorr.bind(this),
-      this.removeErorr.bind(this)
+        this.makeErorr.bind(this),
+        this.removeErorr.bind(this)
     );
   }
 
@@ -30,11 +30,11 @@ export class ProfileDataComponent extends Component {
   }
 
   componentDidMount(): void {
-    const { validationRules } = this.getProps;
+    const {validationRules} = this.getProps;
     validationRules &&
-      this.input.addEventListener("focus", () => this.runValidation());
+      this.input.addEventListener('focus', () => this.runValidation());
     validationRules &&
-      this.input.addEventListener("blur", () => this.runValidation());
+      this.input.addEventListener('blur', () => this.runValidation());
   }
 
   runValidation() {
@@ -56,10 +56,10 @@ export class ProfileDataComponent extends Component {
 
 const ProfileData = ({
   fieldName,
-  data = "",
+  data = '',
   inputName,
   disabled,
-  type = "text",
+  type = 'text',
   validationRules,
 }: ProfileDataProps) => {
   const componentData = {
@@ -69,7 +69,7 @@ const ProfileData = ({
     disabled,
     type,
     inputName,
-    className: { ...styles },
+    className: {...styles},
     validationRules,
   };
 
