@@ -8,7 +8,7 @@
     "open": "start http://localhost:3000",
     "server": "node server.js",
     "start": "yarn run clean:output && parcel index.html -p 3000 --open",
-    "build": "yarn run clean:output && parcel build index.html && yarn run open && yarn run server ",
+    "build": "yarn run clean:output && parcel build index.html",
     "eslint": "eslint --ext .ts,.js .",
     "eslint:fix": "eslint --fix --ext .ts,.js .",
     "stylelint": "stylelint \"**/*.scss\"",
