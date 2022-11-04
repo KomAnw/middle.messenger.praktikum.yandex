@@ -44,9 +44,7 @@ class Component {
     this.componentDidUpdate(oldProps, newProps);
   }
 
-  componentDidUpdate(oldProps, newProps) {
-    console.log(oldProps, newProps);
-  }
+  componentDidUpdate(oldProps, newProps) {}
 
   private makePropsProxy(props: any) {
     const callCDU = this._componentDidUpdate.bind(this);
@@ -68,6 +66,27 @@ class Component {
     });
   }
 
+  watchChanges() {
+    const callback = (mutationsList: MutationRecord[]) => {
+      for (const mutation of mutationsList) {
+        const { oldValue, target, type } = mutation;
+        const isInput = target.nodeName === "INPUT";
+        const isAttributeChanged = type === "attributes";
+        isAttributeChanged &&
+          isInput &&
+          this.componentDidUpdate(oldValue, (target as HTMLInputElement).value);
+      }
+    };
+
+    const observer = new MutationObserver(callback);
+    this.wrapper &&
+      observer.observe(this.wrapper, {
+        attributes: true,
+        subtree: true,
+        attributeOldValue: true,
+      });
+  }
+
   setProps = (nextProps: any) => {
     if (!nextProps) {
       return;
@@ -76,15 +95,18 @@ class Component {
     Object.assign(this.props, nextProps);
   };
 
-  protected replaceNodesToComponents(nestedComponents: {
-    [key: string]: Element;
-  }) {
+  private replaceNodesToComponents() {
     const components = this.wrapper?.querySelectorAll("component");
 
-    components?.forEach((component) => {
-      const componentId = component.id;
-      const newComponent = nestedComponents[componentId];
-      component.replaceWith(newComponent);
+    components?.forEach((customComponent) => {
+      const componentId = customComponent.id;
+      const component = this.props.nestedComponents[componentId];
+      if (component instanceof DocumentFragment) {
+        customComponent.replaceWith(component);
+      } else {
+        const newComponent = this.props.nestedComponents[componentId].getNode;
+        customComponent.replaceWith(newComponent);
+      }
     });
   }
 
@@ -93,6 +115,8 @@ class Component {
       this.dispatchComponentDidMount.bind(this)
     );
     this.wrapper.insertAdjacentHTML("beforeend", this.compiledTemplate);
+    this.props.nestedComponents && this.replaceNodesToComponents();
+    this.watchChanges();
     this.render();
   }
 

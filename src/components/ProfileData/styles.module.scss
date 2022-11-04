@@ -39,4 +39,15 @@
     opacity: 0.24;
     margin: 0;
   }
+
+  .error {
+    margin: 0;
+    font-family: var(--inter);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 10px;
+    color: red;
+    text-align: end;
+  }
 }

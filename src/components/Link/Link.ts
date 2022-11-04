@@ -3,7 +3,7 @@ import Component from "src/modules/Component";
 import * as styles from "./styles.module.scss";
 import { LinkProps } from "./types";
 
-class LinkComponent extends Component {
+export class LinkComponent extends Component {
   constructor(template: string, props: any) {
     super(template, props);
   }

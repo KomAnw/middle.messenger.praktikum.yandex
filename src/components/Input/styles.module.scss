@@ -19,6 +19,14 @@
       border-bottom: 2px solid var(--blue);
     }
 
+    &:invalid {
+      border-bottom: 2px solid red;
+    }
+
+    &:not([value=""]):valid {
+      border-bottom: 2px solid #00f300;
+    }
+
     &:focus + .placeholder {
       transition: all 0.3s linear;
       top: 0;
@@ -27,7 +35,7 @@
       line-height: 9px;
     }
 
-    &:not([value='']) + .placeholder {
+    &:not([value=""]) + .placeholder {
       top: 0;
       left: 0;
       font-size: 9px;
@@ -46,5 +54,15 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
+  }
+
+  .error {
+    font-family: var(--inter);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 10px;
+    color: red;
+    margin: 5px 0 0 0;
   }
 }

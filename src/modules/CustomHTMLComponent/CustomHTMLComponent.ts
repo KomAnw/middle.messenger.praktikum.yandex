@@ -12,5 +12,5 @@ class CustomHTMLComponent extends HTMLElement {
 
 export default CustomHTMLComponent;
 
-customElements.get("custom-component") ||
-  customElements.define("custom-component", CustomHTMLComponent);
+customElements.get('custom-component') ||
+  customElements.define('custom-component', CustomHTMLComponent);

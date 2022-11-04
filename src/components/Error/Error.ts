@@ -13,13 +13,6 @@ class ErrorComponent extends Component {
   constructor(template: string, props: any) {
     super(template, props);
   }
-
-  render() {
-    const nestedComponents = {
-      link: Link(linkProps).getNode,
-    };
-    this.replaceNodesToComponents(nestedComponents);
-  }
 }
 
 const Error = ({ error, errorMessage }: ErrorProps) => {
@@ -27,6 +20,7 @@ const Error = ({ error, errorMessage }: ErrorProps) => {
     error,
     errorMessage,
     className: { ...styles },
+    nestedComponents: { link: Link(linkProps) },
   };
 
   return new ErrorComponent(template, componentData).getNode;

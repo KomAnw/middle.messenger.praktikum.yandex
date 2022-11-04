@@ -3,7 +3,7 @@ import Component from "src/modules/Component";
 import * as styles from "./styles.module.scss";
 import { ButtonProps } from "./types";
 
-class ButtonComponent extends Component {
+export class ButtonComponent extends Component {
   constructor(template: string, props: any) {
     super(template, props);
   }

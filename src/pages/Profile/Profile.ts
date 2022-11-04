@@ -1,19 +1,35 @@
 import template from "bundle-text:./Profile.html";
 import * as styles from "./styles.module.scss";
-import Component from "src/modules/component1/Component";
 import ProfileAvatar from "../../components/ProfileAvatar/ProfileAvatar";
 import ProfileData from "src/components/ProfileData/ProfileData";
 import { FieldsProps, ProfileCommonProps } from "./types";
-import Button from "../../components/Button/Button";
+import Button, { ButtonComponent } from "../../components/Button/Button";
+import Component from "src/modules/Component";
+import { NestedComponents, onSubmitFomsHandler } from "src/utils";
 
-const FiledsList = (fieldsProps: FieldsProps[], disabled?: "disabled") => {
-  const container = document.createDocumentFragment();
-  const components = fieldsProps.map(({ fieldName, data, inputName }) =>
-    ProfileData({ fieldName, data, disabled, inputName })
+const FiledsList = (fieldsProps: FieldsProps[], disabled?: "disabled") =>
+  fieldsProps.reduce(
+    (accumulator, props) => ({
+      ...accumulator,
+      [props.inputName]: ProfileData({ disabled, ...props }),
+    }),
+    {}
   );
-  components.forEach((elem) => container.appendChild(elem));
-  return container;
-};
+class ProfileComponent extends Component {
+  nestedComponents: NestedComponents;
+  button: ButtonComponent;
+
+  constructor(template: string, props: any) {
+    super(template, props);
+    this.nestedComponents = this.getProps.nestedComponents;
+    this.button = this.nestedComponents.Button;
+  }
+
+  componentDidMount(): void {
+    !this.getProps.disabled &&
+      onSubmitFomsHandler(this.button.getNode, this.nestedComponents);
+  }
+}
 
 const Profile = ({
   name = "Имя",
@@ -21,47 +37,21 @@ const Profile = ({
   fieldsProps,
   disabled,
 }: ProfileCommonProps) => {
-  const Avatar = ProfileAvatar(avatarProps);
   const ButtonComponent = !disabled && Button({ text: "Сохранить" });
-  const {
-    profile,
-    top,
-    profileName,
-    fieldsList,
-    common,
-    change,
-    exit,
-    buttonsContainer,
-    divider,
-    button,
-  } = styles;
   const componentData = {
-    className: {
-      profile,
-      top,
-      profileName,
-      fieldsList,
-      common,
-      change,
-      exit,
-      buttonsContainer,
-      button,
-      divider,
-    },
+    className: { ...styles },
     name,
     disabled,
-  };
-  const nestedComponents = {
-    Avatar,
-    FieldsList: FiledsList(fieldsProps, disabled),
-    Button: disabled ? "" : ButtonComponent,
+    avatarProps,
+    fieldsProps,
+    nestedComponents: {
+      Avatar: ProfileAvatar(avatarProps),
+      Button: ButtonComponent || document.createDocumentFragment(),
+      ...FiledsList(fieldsProps, disabled),
+    },
   };
 
-  return new Component({
-    template,
-    componentData,
-    nestedComponents,
-  }).createComponent();
+  return new ProfileComponent(template, componentData).getNode;
 };
 
 export default Profile;
