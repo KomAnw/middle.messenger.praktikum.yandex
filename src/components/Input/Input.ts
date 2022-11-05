@@ -1,16 +1,18 @@
+import {ValidationValues} from './../../modules/Validator/types';
 import template from 'bundle-text:./Input.html';
 import * as styles from './styles.module.scss';
 import {InputProps} from './types';
 import Component from 'src/modules/Component/Component';
 import {Validator} from 'src/modules/Validator/Validator';
+import {Props} from 'src/modules/Component/types';
 
-export class InputComponent extends Component {
+export class InputComponent<P extends Props> extends Component<P> {
   public isValid: boolean;
   private input: HTMLInputElement;
   private errorField: HTMLElement;
   private validator: Validator;
 
-  constructor(template: string, props: any) {
+  constructor(template: string, props: P) {
     super(template, props);
     this.isValid = false;
     this.input = this.getNode.querySelector('input')!;
@@ -32,13 +34,17 @@ export class InputComponent extends Component {
   componentDidMount(): void {
     const {validationRules} = this.getProps;
     validationRules &&
-      this.input.addEventListener('focus', () => this.runValidation());
+      this.input.addEventListener('focus', this.runValidation.bind(this));
     validationRules &&
-      this.input.addEventListener('blur', () => this.runValidation());
+      this.input.addEventListener('blur', this.runValidation.bind(this));
   }
 
   runValidation() {
-    this.validator.checkValidation(this.input, this.getProps.validationRules);
+    const {validationRules} = this.getProps;
+    this.validator.checkValidation(
+        this.input,
+      validationRules as ValidationValues
+    );
   }
 
   inputAnimationHandler() {

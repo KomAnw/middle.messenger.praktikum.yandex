@@ -1,20 +1,10 @@
-import {ButtonComponent} from './components/Button/Button';
+import {Props} from 'src/modules/Component/types';
 import {InputComponent} from './components/Input/Input';
-import {LinkComponent} from './components/Link/Link';
 import {ProfileDataComponent} from './components/ProfileData/ProfileData';
-
-export type NestedComponents = {
-  [key: string]: NestedComponent;
-};
-
-export type NestedComponent =
-  | InputComponent
-  | ButtonComponent
-  | LinkComponent
-  | ProfileDataComponent;
+import {NestedComponent, NestedComponents} from './modules/Component/types';
 
 export const onSubmitFomsHandler = (
-    button: HTMLElement,
+    form: HTMLFormElement,
     nestedComponents: NestedComponents
 ) => {
   let validationResult: boolean[] = [];
@@ -23,12 +13,12 @@ export const onSubmitFomsHandler = (
 
   const typeGuard = (
       component: NestedComponent
-  ): InputComponent | ProfileDataComponent | false =>
+  ): InputComponent<Props> | ProfileDataComponent<Props> | false =>
     (component instanceof InputComponent ||
       component instanceof ProfileDataComponent) &&
     component;
 
-  button.addEventListener('click', (event) => {
+  form.addEventListener('submit', (event) => {
     event.preventDefault();
     validationResult = [];
     for (const component in nestedComponents) {

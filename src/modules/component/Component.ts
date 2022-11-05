@@ -1,13 +1,13 @@
 import CustomHTMLComponent from '../CustomHTMLComponent/CustomHTMLComponent';
 import Templator from '../tempator/Templator';
+import {NestedComponents, Props} from './types';
 
-class Component {
+class Component<P extends Props> {
   private wrapper: HTMLElement | null;
-  private props: any;
   private templator: Templator;
   private compiledTemplate: string;
 
-  constructor(template: string, props: any) {
+  constructor(template: string, private props: P) {
     this.props = this.makePropsProxy(props);
     this.compiledTemplate = '';
     this.wrapper = null;
@@ -38,25 +38,24 @@ class Component {
 
   componentDidMount() {}
 
-  private _componentDidUpdate(oldProps, newProps) {
+  private _componentDidUpdate(oldProps: P, newProps: P) {
     this.createTemplate();
     this._render();
     this.componentDidUpdate(oldProps, newProps);
   }
 
-  componentDidUpdate(oldProps, newProps) {}
+  componentDidUpdate(oldProps: P, newProps: P) {}
 
-  private makePropsProxy(props: any) {
+  private makePropsProxy(props: P) {
     const callCDU = this._componentDidUpdate.bind(this);
     return new Proxy(props, {
       get(target, prop) {
-        const value = target[prop];
-        return typeof value === 'function' ? value.bind(target) : value;
+        return target[prop as keyof P];
       },
       set(target, prop, value) {
         const oldProps = {...target};
         const newProps = target;
-        target[prop] = value;
+        target[prop as keyof P] = value;
         callCDU(oldProps, newProps);
         return true;
       },
@@ -66,28 +65,7 @@ class Component {
     });
   }
 
-  watchChanges() {
-    const callback = (mutationsList: MutationRecord[]) => {
-      for (const mutation of mutationsList) {
-        const {oldValue, target, type} = mutation;
-        const isInput = target.nodeName === 'INPUT';
-        const isAttributeChanged = type === 'attributes';
-        isAttributeChanged &&
-          isInput &&
-          this.componentDidUpdate(oldValue, (target as HTMLInputElement).value);
-      }
-    };
-
-    const observer = new MutationObserver(callback);
-    this.wrapper &&
-      observer.observe(this.wrapper, {
-        attributes: true,
-        subtree: true,
-        attributeOldValue: true,
-      });
-  }
-
-  setProps = (nextProps: any) => {
+  setProps = (nextProps: P) => {
     if (!nextProps) {
       return;
     }
@@ -100,11 +78,12 @@ class Component {
 
     components?.forEach((customComponent) => {
       const componentId = customComponent.id;
-      const component = this.props.nestedComponents[componentId];
+      const nestedComponent = this.props.nestedComponents as NestedComponents;
+      const component = nestedComponent[componentId];
       if (component instanceof DocumentFragment) {
         customComponent.replaceWith(component);
       } else {
-        const newComponent = this.props.nestedComponents[componentId].getNode;
+        const newComponent = nestedComponent[componentId].getNode;
         customComponent.replaceWith(newComponent);
       }
     });
@@ -116,7 +95,6 @@ class Component {
     );
     this.wrapper.insertAdjacentHTML('beforeend', this.compiledTemplate);
     this.props.nestedComponents && this.replaceNodesToComponents();
-    this.watchChanges();
     this.render();
   }
 

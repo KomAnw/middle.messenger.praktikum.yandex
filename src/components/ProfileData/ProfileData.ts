@@ -1,16 +1,18 @@
+import {ValidationValues} from './../../modules/Validator/types';
 import template from 'bundle-text:./ProfileData.html';
 import Component from 'src/modules/Component';
+import {Props} from 'src/modules/Component/types';
 import {Validator} from 'src/modules/Validator/Validator';
 import * as styles from './styles.module.scss';
 import {ProfileDataProps} from './types';
 
-export class ProfileDataComponent extends Component {
+export class ProfileDataComponent<P extends Props> extends Component<P> {
   public isValid: boolean;
   private input: HTMLInputElement;
   private errorField: HTMLElement;
   private validator: Validator;
 
-  constructor(template: string, props: any) {
+  constructor(template: string, props: P) {
     super(template, props);
     this.isValid = false;
     this.input = this.getNode.querySelector('input')!;
@@ -38,7 +40,10 @@ export class ProfileDataComponent extends Component {
   }
 
   runValidation() {
-    this.validator.checkValidation(this.input, this.getProps.validationRules);
+    this.validator.checkValidation(
+        this.input,
+      this.getProps.validationRules as ValidationValues
+    );
   }
 
   makeErorr(error: string) {

@@ -3,9 +3,10 @@ import * as styles from './styles.module.scss';
 import {ProfileAvatarProps} from './types';
 import avatar from '../../../static/assets/profile/avatar.jpg';
 import Component from 'src/modules/Component';
+import {Props} from 'src/modules/Component/types';
 
-class ProfileAvatarComponent extends Component {
-  constructor(template: string, props: any) {
+export class ProfileAvatarComponent<P extends Props> extends Component<P> {
+  constructor(template: string, props: P) {
     super(template, props);
   }
 
@@ -25,11 +26,10 @@ const ProfileAvatar = ({
   link = avatar,
   alt = 'My avatar',
 }: ProfileAvatarProps) => {
-  const {avatar, container, text, background} = styles;
   const componentData = {
     link,
     alt,
-    className: {avatar, container, text, background},
+    className: {...styles},
   };
 
   return new ProfileAvatarComponent(template, componentData);

@@ -1,4 +1,3 @@
-import {ButtonComponent} from './../../components/Button/Button';
 import template from 'bundle-text:./Login.html';
 import Input from 'src/components/Input/Input';
 import Button from 'src/components/Button/Button';
@@ -7,21 +6,21 @@ import * as styles from './styles.module.scss';
 import Link from 'src/components/Link/Link';
 import {login, button, link, password} from './constants';
 import Component from 'src/modules/Component';
-import {NestedComponents} from './types';
 import {onSubmitFomsHandler} from 'src/utils';
+import {NestedComponents, Props} from 'src/modules/Component/types';
 
-class LoginComponent extends Component {
+class LoginComponent<P extends Props> extends Component<P> {
   nestedComponents: NestedComponents;
-  button: ButtonComponent;
+  form: HTMLFormElement;
 
-  constructor(template: string, props: any) {
+  constructor(template: string, props: P) {
     super(template, props);
-    this.nestedComponents = this.getProps.nestedComponents;
-    this.button = this.nestedComponents.button;
+    this.nestedComponents = this.getProps.nestedComponents as NestedComponents;
+    this.form = this.getNode.querySelector('form')!;
   }
 
   componentDidMount(): void {
-    onSubmitFomsHandler(this.button.getNode, this.nestedComponents);
+    onSubmitFomsHandler(this.form, this.nestedComponents);
   }
 }
 
@@ -37,7 +36,7 @@ const Login = () => {
     },
   };
 
-  return new LoginComponent(template, componentData).getNode;
+  return new LoginComponent(template, componentData as Props).getNode;
 };
 
 export default Login;

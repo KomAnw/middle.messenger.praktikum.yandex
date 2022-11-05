@@ -1,3 +1,4 @@
+import {Props} from 'src/modules/Component/types';
 import template from 'bundle-text:./Chat.html';
 import * as styles from './styles.module.scss';
 import ChatField from '../../components/ChatField/ChatField';
@@ -13,8 +14,8 @@ const getChats = (chatsData: ChatCard[]) => {
   result.forEach((element) => container.appendChild(element));
   return container;
 };
-class ChatComponent extends Component {
-  constructor(template: string, props: any) {
+class ChatComponent<P extends Props> extends Component<P> {
+  constructor(template: string, props: P) {
     super(template, props);
   }
 }
@@ -28,7 +29,7 @@ const Chat = ({chatsData}: ChatProps) => {
     },
   };
 
-  return new ChatComponent(template, componentData).getNode;
+  return new ChatComponent(template, componentData as Props).getNode;
 };
 
 export default Chat;

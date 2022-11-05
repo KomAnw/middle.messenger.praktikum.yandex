@@ -23,19 +23,20 @@
       border-bottom: 2px solid red;
     }
 
-    &:not([value=""]):valid {
-      border-bottom: 2px solid #00f300;
-    }
-
-    &:focus + .placeholder {
-      transition: all 0.3s linear;
+    &[value] + .placeholder {
       top: 0;
       left: 0;
       font-size: 9px;
       line-height: 9px;
     }
 
-    &:not([value=""]) + .placeholder {
+    &[value]:valid {
+      transition: all 0.15s linear;
+      border-bottom: 2px solid #00f300;
+    }
+
+    &:focus + .placeholder {
+      transition: all 0.3s linear;
       top: 0;
       left: 0;
       font-size: 9px;

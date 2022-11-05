@@ -1,10 +1,11 @@
+import {Props} from 'src/modules/Component/types';
 import template from 'bundle-text:./Button.html';
 import Component from 'src/modules/Component';
 import * as styles from './styles.module.scss';
 import {ButtonProps} from './types';
 
-export class ButtonComponent extends Component {
-  constructor(template: string, props: any) {
+export class ButtonComponent<P extends Props> extends Component<P> {
+  constructor(template: string, props: P) {
     super(template, props);
   }
 }

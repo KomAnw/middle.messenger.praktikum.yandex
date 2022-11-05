@@ -1,57 +1,41 @@
-export type Options = {
-  data?: any;
-  timeout?: number;
-  method: string;
-  headers?: any;
-};
+import {HTTPMethod, Options} from './types';
+
+enum METHODS {
+  GET = 'GET',
+  PUT = 'PUT',
+  POST = 'POST',
+  DELETE = 'DELETE',
+}
 
 export class Api {
-  static METHODS = {
-    GET: 'GET',
-    PUT: 'PUT',
-    POST: 'POST',
-    DELETE: 'DELETE',
-  };
   constructor() {}
 
-  get = (url: string, options: Options) => {
-    const queryUrl = options.data ?
+  get: HTTPMethod = (url, options) => {
+    const queryUrl = options?.data ?
       `${url}${this.queryStringify(options.data)}` :
       url;
     return this.request(
         queryUrl,
-        {...options, method: Api.METHODS.GET},
-        options.timeout
+        {...options, method: METHODS.GET},
+        options?.timeout
     );
   };
 
-  put = (url: any, options: Options) =>
-    this.request(url, {...options, method: Api.METHODS.PUT}, options.timeout);
+  put: HTTPMethod = (url, options) =>
+    this.request(url, {...options, method: METHODS.PUT}, options?.timeout);
 
-  post = (url: any, options: Options) =>
-    this.request(
-        url,
-        {...options, method: Api.METHODS.POST},
-        options.timeout
-    );
+  post: HTTPMethod = (url, options) =>
+    this.request(url, {...options, method: METHODS.POST}, options?.timeout);
 
-  delete = (url: any, options: Options) =>
-    this.request(
-        url,
-        {...options, method: Api.METHODS.DELETE},
-        options.timeout
-    );
+  delete: HTTPMethod = (url, options) =>
+    this.request(url, {...options, method: METHODS.DELETE}, options?.timeout);
 
   private queryStringify(data: { [s: string]: unknown } | ArrayLike<unknown>) {
     const entries = Object.entries(data).map(([key, val]) => `${key}=${val}`);
     return `?${entries.join('&')}`;
   }
 
-  private request = (
-      url: string | URL,
-      options: Options,
-      timeout: number = 5000
-  ) => {
+  private request = (url: string, options: Options, timeout: number = 5000) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(options.method, url);
@@ -68,7 +52,7 @@ export class Api {
       xhr.timeout = timeout;
       xhr.ontimeout = () => reject('Timeout occured');
 
-      if (options.method === Api.METHODS.GET || !options.data) xhr.send();
+      if (options.method === METHODS.GET || !options.data) xhr.send();
       else xhr.send(options.data);
     });
   };

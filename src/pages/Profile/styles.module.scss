@@ -4,6 +4,11 @@
   max-width: 800px;
   margin: 0 auto;
 
+  .form {
+    display: grid;
+    justify-items: center;
+  }
+
   .top {
     display: grid;
     justify-content: center;

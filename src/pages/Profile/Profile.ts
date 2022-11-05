@@ -1,11 +1,12 @@
+import {NestedComponents, Props} from 'src/modules/Component/types';
 import template from 'bundle-text:./Profile.html';
 import * as styles from './styles.module.scss';
 import ProfileAvatar from '../../components/ProfileAvatar/ProfileAvatar';
 import ProfileData from 'src/components/ProfileData/ProfileData';
 import {FieldsProps, ProfileCommonProps} from './types';
-import Button, {ButtonComponent} from '../../components/Button/Button';
+import Button from '../../components/Button/Button';
 import Component from 'src/modules/Component';
-import {NestedComponents, onSubmitFomsHandler} from 'src/utils';
+import {onSubmitFomsHandler} from 'src/utils';
 
 const FiledsList = (fieldsProps: FieldsProps[], disabled?: 'disabled') =>
   fieldsProps.reduce(
@@ -15,19 +16,19 @@ const FiledsList = (fieldsProps: FieldsProps[], disabled?: 'disabled') =>
       }),
       {}
   );
-class ProfileComponent extends Component {
+class ProfileComponent<P extends Props> extends Component<P> {
   nestedComponents: NestedComponents;
-  button: ButtonComponent;
+  form: HTMLFormElement;
 
-  constructor(template: string, props: any) {
+  constructor(template: string, props: P) {
     super(template, props);
-    this.nestedComponents = this.getProps.nestedComponents;
-    this.button = this.nestedComponents.Button;
+    this.nestedComponents = this.getProps.nestedComponents as NestedComponents;
+    this.form = this.getNode.querySelector('form')!;
   }
 
   componentDidMount(): void {
     !this.getProps.disabled &&
-      onSubmitFomsHandler(this.button.getNode, this.nestedComponents);
+      onSubmitFomsHandler(this.form, this.nestedComponents);
   }
 }
 
@@ -51,7 +52,7 @@ const Profile = ({
     },
   };
 
-  return new ProfileComponent(template, componentData).getNode;
+  return new ProfileComponent(template, componentData as Props).getNode;
 };
 
 export default Profile;

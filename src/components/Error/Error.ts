@@ -1,7 +1,8 @@
+import {Props} from 'src/modules/Component/types';
 import template from 'bundle-text:./Error.html';
 import * as styles from './styles.module.scss';
 import archive from 'src/archive.json';
-import {ErrorProps} from './types';
+import {ComponentData, ErrorProps} from './types';
 import Link from '../Link/Link';
 import Component from 'src/modules/Component';
 
@@ -9,14 +10,15 @@ const linkProps = {
   url: archive.errorPages.link.url,
   text: archive.errorPages.link.text,
 };
-class ErrorComponent extends Component {
-  constructor(template: string, props: any) {
+
+class ErrorComponent<P extends Props> extends Component<P> {
+  constructor(template: string, props: P) {
     super(template, props);
   }
 }
 
 const Error = ({error, errorMessage}: ErrorProps) => {
-  const componentData = {
+  const componentData: ComponentData = {
     error,
     errorMessage,
     className: {...styles},

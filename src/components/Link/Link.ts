@@ -1,10 +1,11 @@
+import {Props} from 'src/modules/Component/types';
 import template from 'bundle-text:./Link.html';
 import Component from 'src/modules/Component';
 import * as styles from './styles.module.scss';
 import {LinkProps} from './types';
 
-export class LinkComponent extends Component {
-  constructor(template: string, props: any) {
+export class LinkComponent<P extends Props> extends Component<P> {
+  constructor(template: string, props: P) {
     super(template, props);
   }
 
@@ -23,7 +24,7 @@ const Link = ({url, text}: LinkProps) => {
   const componentData = {
     text,
     url,
-    className: styles.link,
+    className: {...styles},
   };
 
   return new LinkComponent(template, componentData);
