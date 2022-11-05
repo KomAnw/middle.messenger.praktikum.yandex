@@ -1,26 +1,38 @@
-import template from "bundle-text:./ProfileAvatar.html";
-import * as styles from "./styles.module.scss";
-import Component from "src/modules/component/Component";
-import { ProfileAvatarProps } from "./types";
-import avatar from "../../../static/assets/profile/avatar.jpg";
+import template from 'bundle-text:./ProfileAvatar.html';
+import * as styles from './styles.module.scss';
+import {ProfileAvatarProps} from './types';
+import avatar from '../../../static/assets/profile/avatar.jpg';
+import Component from 'src/modules/Component';
+import {Props} from 'src/modules/Component/types';
 
-const setSrc = (component: HTMLImageElement) => {
-  const img = component.querySelector("img")!;
-  const { src } = img.dataset;
-  img.setAttribute("src", `${src}`);
-  return component;
-};
+export class ProfileAvatarComponent<P extends Props> extends Component<P> {
+  constructor(template: string, props: P) {
+    super(template, props);
+  }
 
-const ProfileAvatar = ({ link = avatar, alt = "My avatar" }: ProfileAvatarProps) => {
-  const { avatar, container, text, background } = styles;
+  setSrc(component: HTMLImageElement) {
+    const img = component.querySelector('img')!;
+    const {src} = img.dataset;
+    img.setAttribute('src', `${src}`);
+    return component;
+  }
+
+  render() {
+    this.setSrc(this.getNode as HTMLImageElement);
+  }
+}
+
+const ProfileAvatar = ({
+  link = avatar,
+  alt = 'My avatar',
+}: ProfileAvatarProps) => {
   const componentData = {
     link,
     alt,
-    className: { avatar, container, text, background },
+    className: {...styles},
   };
 
-  const result = new Component({ template, componentData }).createComponent();
-  return setSrc(result as HTMLImageElement);
+  return new ProfileAvatarComponent(template, componentData);
 };
 
 export default ProfileAvatar;

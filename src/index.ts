@@ -1,4 +1,4 @@
-import "normalize.css";
-import App from "./App/App";
+import 'normalize.css';
+import App from './app/App';
 
 App.bootstrap();

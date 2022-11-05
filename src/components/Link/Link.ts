@@ -1,21 +1,33 @@
-import template from "bundle-text:./Link.html";
-import * as styles from "./styles.module.scss";
-import { LinkProps } from "./types";
-import Component from "src/modules/component/Component";
+import {Props} from 'src/modules/Component/types';
+import template from 'bundle-text:./Link.html';
+import Component from 'src/modules/Component';
+import * as styles from './styles.module.scss';
+import {LinkProps} from './types';
 
-const linkHandler = (url: string) => (node: Element) => {
-  node.addEventListener("click", () => window.history.pushState({}, "", `${url}`));
-};
+export class LinkComponent<P extends Props> extends Component<P> {
+  constructor(template: string, props: P) {
+    super(template, props);
+  }
 
-const Link = ({ url, text }: LinkProps) => {
+  linkHandler() {
+    this.getNode.addEventListener('click', () =>
+      window.history.pushState({}, '', `${this.getProps.url}`)
+    );
+  }
+
+  render(): void {
+    this.linkHandler();
+  }
+}
+
+const Link = ({url, text}: LinkProps) => {
   const componentData = {
     text,
-    className: styles.link,
+    url,
+    className: {...styles},
   };
 
-  const script = linkHandler(url);
-
-  return new Component({ template, componentData, script }).createComponent();
+  return new LinkComponent(template, componentData);
 };
 
 export default Link;

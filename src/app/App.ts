@@ -1,9 +1,14 @@
-import "./App.scss";
-import Login from "../Forms/Login/Login";
-import Registration from "../Forms/Registration/Registration";
-import { ClientError, ServerError } from "../Error/Error";
-import { ChangebleProfile, ChangeProfilePassword, CommonProfile } from "../Profile";
-import { ChatComponent } from "../Chat";
+import './App.scss';
+import Login from '../pages/Login/Login';
+import Registration from '../pages/Registration/Registration';
+import {
+  ChangebleProfile,
+  ChangeProfilePassword,
+  CommonProfile,
+} from '../pages/Profile';
+import {ChatComponent} from '../pages/Chat';
+import {ClientError} from 'src/pages/404';
+import {ServerError} from 'src/pages/500';
 
 class Application {
   private root: HTMLElement;
@@ -20,28 +25,28 @@ class Application {
   private renderComponentByLocation() {
     this.root.firstChild && this.root.removeChild(this.root.firstChild);
     switch (window.location.pathname) {
-      case "/login":
+      case '/login':
         this.renderIntoRoot(Login());
         break;
-      case "/registration":
+      case '/registration':
         this.renderIntoRoot(Registration());
         break;
-      case "/404":
+      case '/404':
         this.renderIntoRoot(ClientError);
         break;
-      case "/500":
+      case '/500':
         this.renderIntoRoot(ServerError);
         break;
-      case "/profile":
+      case '/profile':
         this.renderIntoRoot(CommonProfile);
         break;
-      case "/change-profile-data":
+      case '/change-profile-data':
         this.renderIntoRoot(ChangebleProfile);
         break;
-      case "/change-password":
+      case '/change-password':
         this.renderIntoRoot(ChangeProfilePassword);
         break;
-      case "/chat":
+      case '/chat':
         this.renderIntoRoot(ChatComponent);
         break;
       default:
@@ -57,7 +62,7 @@ class Application {
   private listenApp() {
     const callMethod = () => this.renderComponentByLocation();
     const pushState = history.pushState;
-    history.pushState = function () {
+    history.pushState = function() {
       // @ts-expect-error
       pushState.apply(history, arguments);
       callMethod();
@@ -65,6 +70,6 @@ class Application {
   }
 }
 
-const App = new Application("#root");
+const App = new Application('#root');
 Object.freeze(App);
 export default App;

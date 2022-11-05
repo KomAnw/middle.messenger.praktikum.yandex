@@ -1,23 +1,31 @@
-import template from "bundle-text:./Error.html";
-import Component from "src/modules/component/Component";
-import * as styles from "./styles.module.scss";
-import archive from "src/archive.json";
-import { ErrorProps } from "./types";
-import Link from "../Link/Link";
+import {Props} from 'src/modules/Component/types';
+import template from 'bundle-text:./Error.html';
+import * as styles from './styles.module.scss';
+import archive from 'src/archive.json';
+import {ComponentData, ErrorProps} from './types';
+import Link from '../Link/Link';
+import Component from 'src/modules/Component';
 
-const Error = ({ error, errorMessage }: ErrorProps) => {
-  const { text, container, title, description, wrapper } = styles;
-  const linkProps = { url: archive.errorPages.link.url, text: archive.errorPages.link.text };
-  const componentData = {
+const linkProps = {
+  url: archive.errorPages.link.url,
+  text: archive.errorPages.link.text,
+};
+
+class ErrorComponent<P extends Props> extends Component<P> {
+  constructor(template: string, props: P) {
+    super(template, props);
+  }
+}
+
+const Error = ({error, errorMessage}: ErrorProps) => {
+  const componentData: ComponentData = {
     error,
     errorMessage,
-    className: { container, title, description, text, wrapper },
-  };
-  const nestedComponents = {
-    link: Link(linkProps),
+    className: {...styles},
+    nestedComponents: {link: Link(linkProps)},
   };
 
-  return new Component({ template, componentData, nestedComponents }).createComponent();
+  return new ErrorComponent(template, componentData).getNode;
 };
 
 export default Error;
