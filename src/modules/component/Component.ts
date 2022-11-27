@@ -1,6 +1,6 @@
-import CustomHTMLComponent from '../CustomHTMLComponent/CustomHTMLComponent';
-import Templator from '../tempator/Templator';
-import {NestedComponents, Props} from './types';
+import CustomHTMLComponent from "../CustomHTMLComponent/CustomHTMLComponent";
+import Templator from "../templator/Templator";
+import { NestedComponents, Props } from "./types";
 
 class Component<P extends Props> {
   private wrapper: HTMLElement | null;
@@ -9,7 +9,7 @@ class Component<P extends Props> {
 
   constructor(template: string, private props: P) {
     this.props = this.makePropsProxy(props);
-    this.compiledTemplate = '';
+    this.compiledTemplate = "";
     this.wrapper = null;
     this.templator = new Templator(template);
     this._init();
@@ -53,14 +53,14 @@ class Component<P extends Props> {
         return target[prop as keyof P];
       },
       set(target, prop, value) {
-        const oldProps = {...target};
+        const oldProps = { ...target };
         const newProps = target;
         target[prop as keyof P] = value;
         callCDU(oldProps, newProps);
         return true;
       },
       deleteProperty() {
-        throw new Error('Нет доступа');
+        throw new Error("Нет доступа");
       },
     });
   }
@@ -74,7 +74,7 @@ class Component<P extends Props> {
   };
 
   private replaceNodesToComponents() {
-    const components = this.wrapper?.querySelectorAll('component');
+    const components = this.wrapper?.querySelectorAll("component");
 
     components?.forEach((customComponent) => {
       const componentId = customComponent.id;
@@ -91,9 +91,9 @@ class Component<P extends Props> {
 
   private _render() {
     this.wrapper = new CustomHTMLComponent(
-        this.dispatchComponentDidMount.bind(this)
+      this.dispatchComponentDidMount.bind(this)
     );
-    this.wrapper.insertAdjacentHTML('beforeend', this.compiledTemplate);
+    this.wrapper.insertAdjacentHTML("beforeend", this.compiledTemplate);
     this.props.nestedComponents && this.replaceNodesToComponents();
     this.render();
   }
