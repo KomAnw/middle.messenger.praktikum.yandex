@@ -1,0 +1,13 @@
+:root {
+  --white: white;
+  --blue: #3369f3;
+  --grey: #999;
+  --black: #1e1e1e;
+  --inter: "Inter", sans-serif;
+}
+
+#root {
+  display: grid;
+  align-items: center;
+  min-height: 100vh;
+}
