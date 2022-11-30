@@ -1,8 +1,17 @@
-export type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
+export enum ContentTypes {
+  applicationJSON = "application/json",
+  muiltiparFormData = "multipart/form-data",
+}
 
-export type Options = {
-  data?: any;
-  timeout?: number;
-  method: string;
-  headers?: any;
-};
+export enum ResponseStatuses {
+  ok = 200,
+  error = 0,
+}
+
+export enum ReadyStateStatuses {
+  UNSENT = 0,
+  OPENED = 1,
+  HEADERS_RECEIVED = 2,
+  LOADING = 3,
+  DONE = 4,
+}

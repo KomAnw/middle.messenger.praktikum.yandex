@@ -46,12 +46,6 @@ class Router {
     const currentRoute = this.currentRoute;
     // listen links and buttons
     const callBack = (path: string) => {
-      const route = this.getRoute(path);
-      if (route) {
-        this.render(route);
-        return;
-      }
-
       this.loadSection(path);
     };
 

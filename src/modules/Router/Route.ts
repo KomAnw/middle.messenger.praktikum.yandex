@@ -11,26 +11,6 @@ class Route {
     this.pathname = locationPath;
     this.block = section;
   }
-
-  navigate(pathname: string) {
-    if (this.match(pathname)) {
-      this.pathname = pathname;
-      // this.render();
-    }
-  }
-
-  leave() {
-    if (this.block) {
-      // this.block.hide();
-      return this.block;
-    }
-  }
-
-  match(pathname: string) {
-    if (pathname) {
-      return true;
-    }
-  }
 }
 
 export default Route;
