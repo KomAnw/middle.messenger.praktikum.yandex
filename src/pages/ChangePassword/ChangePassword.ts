@@ -8,6 +8,9 @@ import { ProfileCommonProps } from "../Profile/types";
 import Component from "src/modules/Component";
 import { onSubmitFomsHandler } from "src/utils/onSubmitFomsHandler";
 import { NestedComponents, Props } from "src/modules/Component/types";
+import { ChangePasswordFormData } from "./types";
+import { changePassword } from "src/api/User/User";
+import { goCommonProfile } from "src/modules/Router/routes";
 
 const FiledsList = (fieldsProps: FieldsProps[], disabled?: "disabled") =>
   fieldsProps.reduce(
@@ -30,8 +33,18 @@ class ChangePasswordComponent<P extends Props> extends Component<P> {
 
   componentDidMount(): void {
     !this.getProps.disabled &&
-      onSubmitFomsHandler(this.form, this.nestedComponents);
+      onSubmitFomsHandler(this.form, this.nestedComponents, this.onSubmit);
   }
+
+  onSubmit = async (formData: ChangePasswordFormData) => {
+    const response = await changePassword(formData);
+    if (response.status === 200) {
+      goCommonProfile();
+      return;
+    }
+
+    alert(response.json().reason);
+  };
 }
 
 const ChangePassword = ({

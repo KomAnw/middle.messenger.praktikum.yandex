@@ -1,13 +1,20 @@
+import { goCommonProfile } from "./../../modules/Router/routes";
 import { NestedComponents, Props } from "src/modules/Component/types";
 import template from "bundle-text:./Profile.html";
 import * as styles from "./styles.module.scss";
 import ProfileAvatar from "../../components/ProfileAvatar/ProfileAvatar";
 import ProfileData from "src/components/ProfileData/ProfileData";
-import { FieldsProps, ProfileCommonProps } from "./types";
+import {
+  ChangeProfileFormData,
+  FieldsProps,
+  ProfileCommonProps,
+} from "./types";
 import Button from "../../components/Button/Button";
 import Component from "src/modules/Component";
 import { onSubmitFomsHandler } from "src/utils/onSubmitFomsHandler";
 import { logout } from "src/api/Auth/Auth";
+import { changeUserProfile } from "src/api/User/User";
+import appStoreProxy from "src/modules/Store/Store";
 
 const FiledsList = (fieldsProps: FieldsProps[], disabled?: "disabled") =>
   fieldsProps.reduce(
@@ -30,11 +37,22 @@ class ProfileComponent<P extends Props> extends Component<P> {
 
   componentDidMount(): void {
     !this.getProps.disabled &&
-      onSubmitFomsHandler(this.form, this.nestedComponents);
-    this.onExit();
+      onSubmitFomsHandler(this.form, this.nestedComponents, this.onSubmit);
+    this.extitHandler();
   }
 
-  onExit() {
+  onSubmit = async (formData: ChangeProfileFormData) => {
+    const response = await changeUserProfile(formData);
+    if (response.status === 200) {
+      appStoreProxy.user = response.json();
+      goCommonProfile();
+      return;
+    }
+
+    alert(response.json().reason);
+  };
+
+  extitHandler() {
     this.exitButton?.addEventListener("click", logout);
   }
 }

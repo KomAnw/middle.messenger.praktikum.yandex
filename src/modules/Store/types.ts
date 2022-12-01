@@ -1,5 +1,16 @@
 export type AppStoreState = {
-  [key in AppStoreKeys]: any;
+  [key in AppStoreKeys]: User;
 };
 
 export type AppStoreKeys = "user";
+
+export type User = {
+  id: number;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  avatar: string;
+  email: string;
+  phone: string;
+};

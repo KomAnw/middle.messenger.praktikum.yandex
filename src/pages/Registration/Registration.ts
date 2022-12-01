@@ -21,9 +21,7 @@ import { onSubmitFomsHandler } from "src/utils/onSubmitFomsHandler";
 import { Props } from "src/modules/Component/types";
 import { RegistrationFormData } from "./types";
 import { getUserInfo, signup } from "src/api/Auth/Auth";
-import { checkResponseStatus } from "src/utils/checkResponseStatus";
 import { createSlice } from "src/modules/Store/slice";
-import appStoreProxy from "src/modules/Store/Store";
 
 class RegistrationComponent<P extends Props> extends Component<P> {
   nestedComponents: NestedComponents;

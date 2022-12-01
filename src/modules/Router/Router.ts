@@ -58,8 +58,7 @@ class Router {
 
     // listen back and forward
     window.onpopstate = (event: PopStateEvent) => {
-      console.log(event);
-      const path = window.location.pathname;
+      const path = event.state;
       path !== currentRoute?.pathname && callBack(path);
     };
   }
