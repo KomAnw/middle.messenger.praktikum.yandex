@@ -9,26 +9,16 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap"
       rel="stylesheet"
     />
-    <script src="./src/index.ts" type="module"></script>
+    <script src="./src/index.tsx" type="module"></script>
     <title>Messanger</title>
   </head>
   <body>
-    <button onclick="window.history.pushState('/login', null, '/login')">
-      login page
-    </button>
-    <button
-      onclick="window.history.pushState('/registration', null, '/registration')"
-    >
-      registration page
-    </button>
-    <button onclick="window.history.pushState('', null, '/404');">404</button>
-    <button onclick="window.history.pushState({}, null, '/500');">500</button>
-    <button onclick="window.history.pushState('/profile', null, '/profile');">
-      Profile
-    </button>
-    <button onclick="window.history.pushState('/chat', null, '/chat');">
-      Chat
-    </button>
     <div id="root"></div>
+    <div id="popup">
+      <div
+        class="background"
+        onclick="document.querySelector('#popup custom-component').remove()"
+      ></div>
+    </div>
   </body>
 </html>

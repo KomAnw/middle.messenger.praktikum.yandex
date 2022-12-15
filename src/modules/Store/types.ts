@@ -1,8 +1,10 @@
-export type AppStoreState = {
-  [key in AppStoreKeys]: User;
-};
+import { ChatData } from "src/pages/Chat/types";
 
-export type AppStoreKeys = "user";
+export type AppState = {
+  user: User | null;
+  chats: ChatData[] | null;
+  selectedChat: any | null;
+};
 
 export type User = {
   id: number;
@@ -14,3 +16,7 @@ export type User = {
   email: string;
   phone: string;
 };
+
+export interface ICustomEvent extends Event {
+  detail?: any;
+}

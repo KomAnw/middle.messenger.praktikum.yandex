@@ -79,12 +79,12 @@ const defineMethod = (method: keyof typeof METHODS | undefined) => {
 const Fetch = async (url: string, options?: FetchOptions) => {
   const method = defineMethod(options?.methodType);
   const { response, status } = (await method(url, options)) as XMLHttpRequest;
+
   const result = {
     response,
     status,
-    json() {
-      return JSON.parse(this.response);
-    },
+    ok: status >= 200 && status <= 299 ? true : false,
+    json: () => JSON.parse(response),
   };
 
   return result;

@@ -1,6 +1,7 @@
+import { isEqual } from "src/utils/isObjectsEqual";
 import CustomHTMLComponent from "../CustomHTMLComponent/CustomHTMLComponent";
 import Templator from "../templator/Templator";
-import { NestedComponents, Props } from "./types";
+import { Props } from "./types";
 
 class Component<P extends Props> {
   private wrapper: HTMLElement | null;
@@ -39,8 +40,10 @@ class Component<P extends Props> {
   componentDidMount() {}
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
+    const oldNode = this.getNode;
     this.createTemplate();
     this._render();
+    this.reRender(oldNode);
     this.componentDidUpdate(oldProps, newProps);
   }
 
@@ -65,8 +68,13 @@ class Component<P extends Props> {
     });
   }
 
-  setProps = (nextProps: P) => {
-    if (!nextProps) {
+  setProps = (nextProps: Props) => {
+    const newProps = {
+      ...this.props,
+      ...nextProps,
+    };
+
+    if (!nextProps || isEqual(this.props, newProps)) {
       return;
     }
 
@@ -76,17 +84,18 @@ class Component<P extends Props> {
   private replaceNodesToComponents() {
     const components = this.wrapper?.querySelectorAll("component");
 
-    components?.forEach((customComponent) => {
-      const componentId = customComponent.id;
-      const nestedComponent = this.props.nestedComponents as NestedComponents;
-      const component = nestedComponent[componentId];
-      if (component instanceof DocumentFragment) {
-        customComponent.replaceWith(component);
-      } else {
-        const newComponent = nestedComponent[componentId].getNode;
-        customComponent.replaceWith(newComponent);
-      }
-    });
+    this.props.nestedComponents &&
+      components?.forEach((customComponent) => {
+        const componentId = customComponent.id;
+        const nestedComponent = this.props.nestedComponents!;
+        const component = nestedComponent[componentId];
+        if (component instanceof DocumentFragment) {
+          customComponent.replaceWith(component);
+        } else {
+          const newComponent = nestedComponent[componentId] as Component<P>;
+          customComponent.replaceWith(newComponent.getNode);
+        }
+      });
   }
 
   private _render() {
@@ -96,6 +105,12 @@ class Component<P extends Props> {
     this.wrapper.insertAdjacentHTML("beforeend", this.compiledTemplate);
     this.props.nestedComponents && this.replaceNodesToComponents();
     this.render();
+  }
+
+  private reRender(oldNode: HTMLElement) {
+    const wrapperId = oldNode.id;
+    const parentNode = document.getElementById(wrapperId)?.parentNode;
+    parentNode?.replaceChild(this.getNode, oldNode);
   }
 
   render() {}

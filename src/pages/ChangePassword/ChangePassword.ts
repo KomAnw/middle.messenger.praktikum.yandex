@@ -37,13 +37,8 @@ class ChangePasswordComponent<P extends Props> extends Component<P> {
   }
 
   onSubmit = async (formData: ChangePasswordFormData) => {
-    const response = await changePassword(formData);
-    if (response.status === 200) {
-      goCommonProfile();
-      return;
-    }
-
-    alert(response.json().reason);
+    const { ok, json } = await changePassword(formData);
+    (ok && goCommonProfile()) || alert(json().reason);
   };
 }
 
@@ -64,7 +59,7 @@ const ChangePassword = ({
     },
   };
 
-  return new ChangePasswordComponent(template, componentData as Props).getNode;
+  return new ChangePasswordComponent(template, componentData).getNode;
 };
 
 export default ChangePassword;

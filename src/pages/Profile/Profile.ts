@@ -14,7 +14,7 @@ import Component from "src/modules/Component";
 import { onSubmitFomsHandler } from "src/utils/onSubmitFomsHandler";
 import { logout } from "src/api/Auth/Auth";
 import { changeUserProfile } from "src/api/User/User";
-import appStoreProxy from "src/modules/Store/Store";
+import { appStore } from "src/modules/Store/Store";
 
 const FiledsList = (fieldsProps: FieldsProps[], disabled?: "disabled") =>
   fieldsProps.reduce(
@@ -24,6 +24,7 @@ const FiledsList = (fieldsProps: FieldsProps[], disabled?: "disabled") =>
     }),
     {}
   );
+
 class ProfileComponent<P extends Props> extends Component<P> {
   nestedComponents: NestedComponents;
   form: HTMLFormElement;
@@ -31,7 +32,7 @@ class ProfileComponent<P extends Props> extends Component<P> {
 
   constructor(template: string, props: P) {
     super(template, props);
-    this.nestedComponents = this.getProps.nestedComponents as NestedComponents;
+    this.nestedComponents = this.getProps.nestedComponents!;
     this.form = this.getNode.querySelector("form")!;
   }
 
@@ -42,14 +43,9 @@ class ProfileComponent<P extends Props> extends Component<P> {
   }
 
   onSubmit = async (formData: ChangeProfileFormData) => {
-    const response = await changeUserProfile(formData);
-    if (response.status === 200) {
-      appStoreProxy.user = response.json();
-      goCommonProfile();
-      return;
-    }
-
-    alert(response.json().reason);
+    const { ok, json } = await changeUserProfile(formData);
+    (ok && appStore.setState("user", json()) && goCommonProfile()) ||
+      alert(json().reason);
   };
 
   extitHandler() {
@@ -77,7 +73,7 @@ const Profile = ({
     },
   };
 
-  return new ProfileComponent(template, componentData as Props).getNode;
+  return new ProfileComponent(template, componentData).getNode;
 };
 
 export default Profile;

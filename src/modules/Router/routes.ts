@@ -7,10 +7,9 @@ import {
 import Registration from "src/pages/Registration/Registration";
 import ClientError from "src/pages/404/index";
 import { Locations, Sections } from "./types";
-import appStoreProxy from "../Store/Store";
 import ChatElement from "src/pages/Chat";
 import { getUserInfo } from "src/api/Auth/Auth";
-import { createSlice } from "../Store/slice";
+import { appStore } from "../Store/Store";
 
 const {
   login,
@@ -33,6 +32,7 @@ export const locationPaths = [
 ];
 
 export const getSectionByPath = async (path: string | undefined) => {
+  let route;
   switch (path) {
     case registration:
       return Registration;
@@ -40,26 +40,30 @@ export const getSectionByPath = async (path: string | undefined) => {
       return Login;
     case home:
     case chat:
-      return await ProtectedRoute(ChatElement);
+      route = await ProtectedRoute(ChatElement);
+      return route;
     case profile:
-      return await ProtectedRoute(CommonProfile);
+      route = await ProtectedRoute(CommonProfile);
+      return route;
     case changeProfileData:
-      return await ProtectedRoute(ChangebleProfile);
+      route = await ProtectedRoute(ChangebleProfile);
+      return route;
     case changePassword:
-      return await ProtectedRoute(ChangeProfilePassword);
+      route = await ProtectedRoute(ChangeProfilePassword);
+      return route;
     default:
       return ClientError;
   }
 };
 
 const ProtectedRoute = async (requiredSection: Sections) => {
-  if (appStoreProxy.user) {
+  if (appStore.getState("user")) {
     return requiredSection;
   }
 
   const response = await getUserInfo();
   if (response.status === 200) {
-    createSlice("user", response.json());
+    appStore.setState("user", response.json());
     return requiredSection;
   }
 

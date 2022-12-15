@@ -1,10 +1,10 @@
-import {Props} from 'src/modules/Component/types';
-import template from 'bundle-text:./Error.html';
-import * as styles from './styles.module.scss';
-import archive from 'src/archive.json';
-import {ComponentData, ErrorProps} from './types';
-import Link from '../Link/Link';
-import Component from 'src/modules/Component';
+import { Props } from "src/modules/Component/types";
+import template from "bundle-text:./Error.html";
+import * as styles from "./styles.module.scss";
+import archive from "src/archive.json";
+import { ErrorProps } from "./types";
+import Link from "../Link/Link";
+import Component from "src/modules/Component";
 
 const linkProps = {
   url: archive.errorPages.link.url,
@@ -17,12 +17,12 @@ class ErrorComponent<P extends Props> extends Component<P> {
   }
 }
 
-const Error = ({error, errorMessage}: ErrorProps) => {
-  const componentData: ComponentData = {
+const Error = ({ error, errorMessage }: ErrorProps) => {
+  const componentData = {
     error,
     errorMessage,
-    className: {...styles},
-    nestedComponents: {link: Link(linkProps)},
+    className: { ...styles },
+    nestedComponents: { link: Link(linkProps) },
   };
 
   return new ErrorComponent(template, componentData).getNode;

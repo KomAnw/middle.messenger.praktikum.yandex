@@ -37,3 +37,14 @@ export const changePassword = async (data: ChangePasswordFormData) => {
   const response = await Fetch(url, options);
   return response;
 };
+
+export const changeAvatar = async (data: FormData) => {
+  const url = generateUrl(UserOperations.avatar);
+  const options: FetchOptions = {
+    methodType: PUT,
+    data: data,
+  };
+
+  const response = await Fetch(url, options);
+  return response;
+};

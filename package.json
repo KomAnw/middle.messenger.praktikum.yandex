@@ -4,7 +4,7 @@
   "description": "",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "clean:output": "rimraf dist",
+    "clean:output": "rimraf dist .parcel-cache",
     "open": "start http://localhost:3000",
     "server": "node server.js",
     "start": "yarn run clean:output && parcel index.html -p 3000 --open",

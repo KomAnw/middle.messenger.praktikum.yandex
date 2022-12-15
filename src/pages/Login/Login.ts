@@ -10,9 +10,8 @@ import { onSubmitFomsHandler } from "src/utils/onSubmitFomsHandler";
 import { NestedComponents, Props } from "src/modules/Component/types";
 import { getUserInfo, signin } from "src/api/Auth/Auth";
 import { LoginFormData } from "./types";
-import { checkResponseStatus } from "src/utils/checkResponseStatus";
-import { createSlice } from "src/modules/Store/slice";
 import { goChat } from "src/modules/Router/routes";
+import { appStore } from "src/modules/Store/Store";
 
 class LoginComponent<P extends Props> extends Component<P> {
   nestedComponents: NestedComponents;
@@ -29,15 +28,15 @@ class LoginComponent<P extends Props> extends Component<P> {
   }
 
   triggerFetch = async (formData: LoginFormData) => {
-    const response = await signin(formData);
-    if (response.status === 200) {
-      const response = await getUserInfo();
-      response.status === 200 && createSlice("user", response.json());
-      goChat();
+    const { ok: signinOK, json: signinJSON } = await signin(formData);
+    if (!signinOK) {
+      alert(signinJSON().reason);
       return;
     }
 
-    alert(response.json().reason);
+    const { ok: getUserInfoOK, json: getUserInfoJSON } = await getUserInfo();
+    getUserInfoOK ? appStore.setState("user", getUserInfoJSON()) : null;
+    goChat();
   };
 }
 
@@ -53,7 +52,7 @@ const Login = () => {
     },
   };
 
-  return new LoginComponent(template, componentData as Props).getNode;
+  return new LoginComponent(template, componentData).getNode;
 };
 
 export default Login;

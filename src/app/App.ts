@@ -4,16 +4,22 @@ import { Sections } from "src/modules/Router/types";
 
 class Application {
   private root: HTMLElement;
+  private popup: HTMLElement;
 
   constructor(rootTag: string) {
     this.root = document.querySelector(rootTag)!;
+    this.popup = document.getElementById("popup")!;
     const renderIntoRoot = this.renderIntoRoot.bind(this);
     new Router(renderIntoRoot).start();
   }
 
-  private renderIntoRoot(section: Sections) {
+  public renderPopup = (node: HTMLElement) => {
+    this.popup.append(node);
+  };
+
+  private async renderIntoRoot(section: Sections) {
     this.removeFromRoot();
-    this.root.appendChild(section());
+    this.root.appendChild(await section());
   }
 
   private removeFromRoot() {

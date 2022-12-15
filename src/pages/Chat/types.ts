@@ -1,10 +1,23 @@
 export type ChatProps = {
-  chatsData: ChatCard[];
+  chatsData: ChatData[];
 };
 
-export type ChatCard = {
-  personName: string;
-  personMessage: string;
-  time: string;
-  unreadMessages: string;
+export type ChatData = {
+  avatar: string | null;
+  created_by: number;
+  id: number;
+  last_message: {
+    user: {
+      first_name: string;
+      second_name: string;
+      avatar: string;
+      email: string;
+      login: string;
+      phone: string;
+    };
+    time: string;
+    content: string;
+  } | null;
+  title: string;
+  unread_count: number;
 };
