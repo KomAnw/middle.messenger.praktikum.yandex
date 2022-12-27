@@ -1,16 +1,19 @@
-import { uId } from "src/utils/unicId";
-
 class CustomHTMLComponent extends HTMLElement {
-  callback: Function;
+  componentDidMount: Function;
+  componentWillUnmount: Function;
 
-  constructor(callback: Function) {
+  constructor(componentDidMount: Function, componentWillUnmount: Function) {
     super();
-    this.callback = callback;
-    this.id = uId();
+    this.componentDidMount = componentDidMount;
+    this.componentWillUnmount = componentWillUnmount;
   }
 
   connectedCallback() {
-    this.callback();
+    this.componentDidMount();
+  }
+
+  disconnectedCallback() {
+    this.componentWillUnmount();
   }
 }
 

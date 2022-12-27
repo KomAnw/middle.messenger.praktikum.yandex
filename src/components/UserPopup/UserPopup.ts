@@ -1,10 +1,12 @@
+import { appStore } from "src/modules/Store/Store";
 import Component from "src/modules/Component";
 import { Props } from "src/modules/Component/types";
 import template from "bundle-text:./UserPopup.html";
 import * as styles from "./styles.module.scss";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import { createChat } from "src/api/Chats/Chats";
+import { addUserToChat, deleteUserFromChat } from "src/api/Chats/Chats";
+import { getUserByLogin } from "src/api/User/User";
 
 class UserPopup<P extends Props> extends Component<P> {
   button: HTMLButtonElement;
@@ -16,14 +18,34 @@ class UserPopup<P extends Props> extends Component<P> {
   }
 
   componentDidMount(): void {
-    this.button.addEventListener("click", this.onAddChatHandler);
+    this.button.textContent === "Добавить"
+      ? this.button.addEventListener("click", this.onAddToChatHandler)
+      : this.button.addEventListener("click", this.onRemoveFromChatHandler);
   }
 
-  onAddChatHandler = async () => {
-    const chatName = this.input.value;
-    if (chatName) {
-      const { status } = await createChat(chatName);
-      status === 200 && loadChats();
+  onRemoveFromChatHandler = async () => {
+    const userLogin = this.input.value;
+    const chatId = appStore.getState("selectedChat")!.id;
+    if (userLogin) {
+      const userLoginResponse = await getUserByLogin(userLogin);
+      userLoginResponse.ok || alert("Такой пользователь не найден :(");
+      const [user] = userLoginResponse.json();
+      const respose = await deleteUserFromChat(chatId, [user.id]);
+      respose.ok && this.getNode.remove();
+      alert(`Пользователь ${userLogin} удален из чата`);
+    }
+  };
+
+  onAddToChatHandler = async () => {
+    const userLogin = this.input.value;
+    const chatId = appStore.getState("selectedChat")!.id;
+    if (userLogin) {
+      const userLoginResponse = await getUserByLogin(userLogin);
+      userLoginResponse.ok || alert("Такой пользователь не найден :(");
+      const [user] = userLoginResponse.json();
+      const respose = await addUserToChat(chatId, [user.id]);
+      respose.ok && this.getNode.remove();
+      alert(`Пользователь ${userLogin} добавлен в чат`);
     }
   };
 }
@@ -51,7 +73,7 @@ export const AddUserPopup = () => {
   return new UserPopup(template, componentData).getNode;
 };
 
-export const removeUserPopup = () => {
+export const RemoveUserPopup = () => {
   const componentData = {
     title: "Удалить пользователя",
     className: { ...styles },

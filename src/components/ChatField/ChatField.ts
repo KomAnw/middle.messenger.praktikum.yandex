@@ -4,7 +4,7 @@ import template from "bundle-text:./ChatField.html";
 import Component from "src/modules/Component";
 import { Props } from "src/modules/Component/types";
 import * as styles from "./styles.module.scss";
-import { deleteChat, getChats } from "src/api/Chats/Chats";
+import { deleteChat, getChats, getChatToken } from "src/api/Chats/Chats";
 
 class ChatFieldComponent<P extends Props> extends Component<Props> {
   constructor(template: string, props: P) {
@@ -25,7 +25,8 @@ class ChatFieldComponent<P extends Props> extends Component<Props> {
       return;
     }
 
-    appStore.setState("selectedChat", { id });
+    const { ok, json } = await getChatToken(Number(id));
+    ok && appStore.setState("selectedChat", { id, token: json().token });
   };
 }
 

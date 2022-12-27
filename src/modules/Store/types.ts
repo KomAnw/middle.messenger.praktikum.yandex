@@ -3,7 +3,24 @@ import { ChatData } from "src/pages/Chat/types";
 export type AppState = {
   user: User | null;
   chats: ChatData[] | null;
-  selectedChat: any | null;
+  selectedChat: SelectedChat | null;
+};
+
+export type SelectedChat = {
+  id: number;
+  token: string;
+  messages: Message[];
+};
+
+export type Message = {
+  chat_id: number;
+  content: string;
+  file: any;
+  id: number;
+  is_read: boolean;
+  time: string;
+  type: string;
+  user_id: number;
 };
 
 export type User = {

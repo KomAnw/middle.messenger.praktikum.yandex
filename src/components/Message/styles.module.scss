@@ -1,0 +1,48 @@
+.container {
+  display: grid;
+  width: 100%;
+  height: max-content;
+  border-radius: 10px;
+  min-width: 250px;
+  .top {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+    padding: 5px 10px;
+    background: #9aceff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    .name {
+      margin: 0;
+      font-family: var(--inter);
+      color: var(--white);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 16px;
+    }
+    .time {
+      margin: 0;
+      font-family: var(--inter);
+      color: var(--white);
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 16px;
+      cursor: context-menu;
+    }
+  }
+  .message {
+    margin: 0;
+    border: 2px solid #9aceff;
+    padding: 10px 8px;
+    font-family: var(--inter);
+    color: var(--black);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}

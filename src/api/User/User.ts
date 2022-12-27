@@ -7,7 +7,7 @@ import { USER } from "../constants";
 import { ContentTypes } from "../types";
 import { UserOperations } from "./types";
 
-const { POST, PUT, GET } = METHODS;
+const { POST, PUT } = METHODS;
 const { applicationJSON } = ContentTypes;
 const generateUrl = addInstancePath(USER);
 
@@ -16,6 +16,30 @@ const basePutOptions: FetchOptions = {
   headers: {
     "content-type": applicationJSON,
   },
+};
+
+const basePostOptions: FetchOptions = {
+  methodType: POST,
+  headers: {
+    "content-type": applicationJSON,
+  },
+};
+
+export const getUserByLogin = async (login: string) => {
+  const url = generateUrl(UserOperations.search);
+  const options = {
+    ...basePostOptions,
+    data: JSON.stringify({ login }),
+  };
+  const response = await Fetch(url, options);
+  return response;
+};
+
+export const getUserById = async (id: number) => {
+  const url = generateUrl(`${id}`);
+
+  const response = await Fetch(url);
+  return response;
 };
 
 export const changeUserProfile = async (data: ChangeProfileFormData) => {

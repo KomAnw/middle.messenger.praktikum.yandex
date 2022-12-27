@@ -4,13 +4,22 @@ import { FetchOptions, METHODS } from "src/modules/Fetch/types";
 import addInstancePath from "src/utils/generateUrl";
 import { CHATS } from "../constants";
 import { ContentTypes } from "../types";
+import { ChatOptions } from "./types";
 
 const { POST, PUT, DELETE } = METHODS;
 const { applicationJSON } = ContentTypes;
+const { token, users } = ChatOptions;
 const generateUrl = addInstancePath(CHATS);
 
 const baseDeleteOptions: FetchOptions = {
   methodType: DELETE,
+  headers: {
+    "content-type": applicationJSON,
+  },
+};
+
+const basePutOptions: FetchOptions = {
+  methodType: PUT,
   headers: {
     "content-type": applicationJSON,
   },
@@ -21,6 +30,36 @@ const basePostOptions: FetchOptions = {
   headers: {
     "content-type": applicationJSON,
   },
+};
+
+export const addUserToChat = async (chatId: number, usersId: number[]) => {
+  const url = generateUrl(users);
+  const data = {
+    users: usersId,
+    chatId,
+  };
+  const options = {
+    ...basePutOptions,
+    data: JSON.stringify(data),
+  };
+
+  const response = await Fetch(url, options);
+  return response;
+};
+
+export const deleteUserFromChat = async (chatId: number, usersId: number[]) => {
+  const url = generateUrl(users);
+  const data = {
+    users: usersId,
+    chatId,
+  };
+  const options = {
+    ...baseDeleteOptions,
+    data: JSON.stringify(data),
+  };
+
+  const response = await Fetch(url, options);
+  return response;
 };
 
 export const getChats = async () => {
@@ -49,5 +88,12 @@ export const deleteChat = async (id: string) => {
     data: JSON.stringify({ chatId: id }),
   };
   const response = await Fetch(url, options);
+  return response;
+};
+
+export const getChatToken = async (id: number) => {
+  const url = generateUrl(`${token}/${id}`);
+
+  const response = await Fetch(url, basePostOptions);
   return response;
 };

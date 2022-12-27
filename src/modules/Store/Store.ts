@@ -1,4 +1,4 @@
-import { AppState } from "./types";
+import { AppState, ICustomEvent } from "./types";
 
 class Store {
   static instance: null | Store = null;
@@ -28,7 +28,15 @@ class Store {
     return undefined;
   }
 
-  public setState(name: keyof AppState, value: any) {
+  public setState(name: keyof AppState, value: any, flag?: boolean) {
+    if (flag && typeof this.state[name] === "object") {
+      this.state[name] = {
+        ...(this.state[name] as unknown as Object),
+        ...value,
+      };
+      return true;
+    }
+
     this.state[name] = value;
     this.createEvent(name, value);
     return true;
@@ -59,9 +67,18 @@ class Store {
    *  // do work
    * );
    */
-  subscribe = (storeType: keyof AppState, callBack: Function) => {
-    document.addEventListener(storeType, ((event: CustomEvent) =>
-      callBack(event)) as EventListener);
+  subscribe = (
+    storeType: keyof AppState,
+    callBack: (event: ICustomEvent) => void
+  ) => {
+    document.addEventListener(storeType, callBack);
+  };
+
+  unSubscribe = (
+    storeType: keyof AppState,
+    callBack: EventListenerOrEventListenerObject
+  ) => {
+    document.removeEventListener(storeType, callBack);
   };
 
   private createEvent(name: string, value: any) {

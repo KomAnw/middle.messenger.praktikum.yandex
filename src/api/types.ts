@@ -15,3 +15,7 @@ export enum ReadyStateStatuses {
   LOADING = 3,
   DONE = 4,
 }
+
+export interface ICustomWSSEvent extends Event {
+  message?: any;
+}

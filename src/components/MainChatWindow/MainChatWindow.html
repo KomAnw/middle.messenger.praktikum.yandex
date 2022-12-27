@@ -1,0 +1,22 @@
+<div class="{{className.container}}">
+  <component id="chatPanel"></component>
+  <div class="{{className.chatMessages}} chatMessages">
+    <component id="messages" class="{{className.messages}}"
+      >Выберите чат</component
+    >
+  </div>
+  <div class="{{className.messageContainer}}">
+    <img
+      src="../../../static/assets//chat/file.png"
+      alt="Прикрепить файл"
+      class="{{className.file}}"
+    />
+    <input
+      type="text"
+      class="{{className.message}} input"
+      placeholder="Сообщение"
+      name="message"
+    />
+    <button class="{{className.sendButton}} sendButton">Отправить</button>
+  </div>
+</div>

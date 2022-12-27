@@ -1,13 +1,4 @@
-import { checkResponseStatus } from "src/utils/checkResponseStatus";
-import {
-  HTTPMethod,
-  Options,
-  METHODS,
-  FetchOptions,
-  Response,
-  SuccsessResponse,
-  ErrorResponse,
-} from "./types";
+import { HTTPMethod, Options, METHODS, FetchOptions } from "./types";
 
 const queryStringify = (
   data: { [s: string]: unknown } | ArrayLike<unknown>
