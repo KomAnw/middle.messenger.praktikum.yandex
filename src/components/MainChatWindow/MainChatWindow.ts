@@ -1,16 +1,16 @@
-import {appStore} from 'src/modules/Store/Store';
-import {Props} from 'src/modules/Component/types';
-import template from 'bundle-text:./MainChatWindow.html';
-import * as styles from './styles.module.scss';
-import Component from 'src/modules/Component';
+import { appStore } from "src/modules/Store/Store";
+import { Props } from "src/modules/Component/types";
+import template from "bundle-text:./MainChatWindow.html";
+import * as styles from "./styles.module.scss";
+import Component from "src/modules/Component";
 import {
   ICustomEvent,
   Message as MessageType,
   SelectedChat,
-} from 'src/modules/Store/types';
-import {WSS} from 'src/modules/Fetch/ws';
-import Message from '../Message/Message';
-import ChatPanel from '../ChatPanel/ChatPanel';
+} from "src/modules/Store/types";
+import { WSS } from "src/modules/Fetch/ws";
+import Message from "../Message/Message";
+import ChatPanel from "../ChatPanel/ChatPanel";
 
 export class MainChatWindowComponent<P extends Props> extends Component<P> {
   send?: (content: string) => void;
@@ -35,35 +35,41 @@ export class MainChatWindowComponent<P extends Props> extends Component<P> {
   }
 
   onChatSelect = async (event: ICustomEvent) => {
-    const {id: chatId, token} = event.detail as SelectedChat;
-    const userId = appStore.getState('user')!.id;
-    const {get, send, socket} = await WSS({userId, chatId, token});
+    const { id: chatId, token } = event.detail as SelectedChat;
+    const userId = appStore.getState("user")!.id;
+    try {
+      const { get, send, socket } = await WSS({ userId, chatId, token });
 
-    this.send = send;
-    this.socket = socket;
-    this.onChatsLoaded(socket);
-    get(0);
+      this.send = send;
+      this.socket = socket;
+      this.onChatsLoaded(socket);
+      get(0);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  async pushMessage({user_id, time, content}: MessageType) {
+  async pushMessage({ user_id, time, content }: MessageType) {
     const instance = await Message({
       user_id,
       text: content,
       time: time,
     });
-    this.getNode.querySelector('.chatMessages')?.prepend(instance.getNode);
+    instance &&
+      this.getNode.querySelector(".chatMessages")?.prepend(instance.getNode);
   }
 
   async renderMessages(messages: MessageType[]) {
     const fragment = document.createDocumentFragment();
 
-    await messages.reduce(async (_, {user_id, time, content}) => {
+    await messages.reduce(async (_, { user_id, time, content }) => {
       const instance = await Message({
         user_id,
         text: content,
         time: time,
       });
-      fragment.append(instance.getNode);
+
+      instance && fragment.append(instance.getNode);
     }, Promise.resolve());
 
     const nestedComponents = {
@@ -71,35 +77,35 @@ export class MainChatWindowComponent<P extends Props> extends Component<P> {
       chatPanel: ChatPanel(),
     };
 
-    this.setProps({nestedComponents});
+    this.setProps({ nestedComponents });
   }
 
   onChatsLoaded(socket: WebSocket) {
-    socket.addEventListener('message', (event) => {
+    socket.addEventListener("message", (event) => {
       const response = JSON.parse(event.data);
-      if (response.type === 'pong') {
+      if (response.type === "pong") {
         return;
       }
 
-      Array.isArray(response) ?
-        this.renderMessages(response) :
-        this.pushMessage(response);
+      Array.isArray(response)
+        ? this.renderMessages(response)
+        : this.pushMessage(response);
     });
   }
 
   subscribe() {
     const button = this.getNode.querySelector(
-        '.sendButton'
+      ".sendButton"
     )! as HTMLButtonElement;
-    const input = this.getNode.querySelector('.input')! as HTMLInputElement;
+    const input = this.getNode.querySelector(".input")! as HTMLInputElement;
 
-    appStore.subscribe('selectedChat', this.onChatSelect);
-    button.addEventListener('click', () => {
+    appStore.subscribe("selectedChat", this.onChatSelect);
+    button.addEventListener("click", () => {
       this.send && input.value && this.send(input.value);
-      input.value = '';
+      input.value = "";
     });
-    input.addEventListener('keypress', (event) => {
-      if (event.key === 'Enter') {
+    input.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
         event.preventDefault();
         button.click();
       }
@@ -109,7 +115,7 @@ export class MainChatWindowComponent<P extends Props> extends Component<P> {
 
 const MainChatWindow = () => {
   const componentData = {
-    className: {...styles},
+    className: { ...styles },
   };
 
   return new MainChatWindowComponent(template, componentData);

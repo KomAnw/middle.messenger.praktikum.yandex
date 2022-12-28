@@ -1,10 +1,10 @@
-import {appStore} from 'src/modules/Store/Store';
-import {ChatData} from './../../pages/Chat/types';
-import template from 'bundle-text:./ChatField.html';
-import Component from 'src/modules/Component';
-import {Props} from 'src/modules/Component/types';
-import * as styles from './styles.module.scss';
-import {deleteChat, getChats, getChatToken} from 'src/api/Chats/Chats';
+import { appStore } from "src/modules/Store/Store";
+import { ChatData } from "./../../pages/Chat/types";
+import template from "bundle-text:./ChatField.html";
+import Component from "src/modules/Component";
+import { Props } from "src/modules/Component/types";
+import * as styles from "./styles.module.scss";
+import { deleteChat, getChats, getChatToken } from "src/api/Chats/Chats";
 
 class ChatFieldComponent<P extends Props> extends Component<Props> {
   constructor(template: string, props: P) {
@@ -12,27 +12,34 @@ class ChatFieldComponent<P extends Props> extends Component<Props> {
   }
 
   componentDidMount() {
-    this.getNode.addEventListener('click', this.onClick);
+    this.getNode.addEventListener("click", this.onClick);
   }
 
   onClick = async (event: Event) => {
     const target = event.target as HTMLElement;
     const curTarget = event.currentTarget as HTMLElement;
     const id = (curTarget.firstChild as HTMLElement)?.id;
-    if (target.classList.contains('remove')) {
-      const {ok} = await deleteChat(id);
-      ok && (await getChats());
-      return;
-    }
+    try {
+      if (target.classList.contains("remove")) {
+        let isRemove = confirm("Вы действительно хотите удалить чат?");
+        if (isRemove) {
+          const { ok } = await deleteChat(id);
+          ok && (await getChats());
+          return;
+        }
+      }
 
-    const {ok, json} = await getChatToken(Number(id));
-    ok && appStore.setState('selectedChat', {id, token: json().token});
+      const { ok, json } = await getChatToken(Number(id));
+      ok && appStore.setState("selectedChat", { id, token: json().token });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
 const ChatField = (props: ChatData) => {
   const componentData = {
-    className: {...styles},
+    className: { ...styles },
     ...props,
   };
 
