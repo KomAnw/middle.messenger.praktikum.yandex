@@ -59,4 +59,4 @@ Run stylelint:
 
 ## 🔗 Links
 
-[pull request](https://github.com/KomAnw/middle.messenger.praktikum.yandex/pull/2)
+[pull request](https://github.com/KomAnw/middle.messenger.praktikum.yandex/pull/3)

@@ -24,6 +24,10 @@ export class ProfileAvatarComponent<P extends Props> extends Component<P> {
     }) as EventListener);
   }
 
+  componentDidUpdate() {
+    this.setSrc();
+  }
+
   setSrc() {
     const img = this.getNode.querySelector('img')!;
     const {link} = this.getProps;
