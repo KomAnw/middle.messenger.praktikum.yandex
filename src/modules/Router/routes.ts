@@ -1,15 +1,15 @@
-import Login from "src/pages/Login/Login";
+import Login from 'src/pages/Login/Login';
 import {
   ChangebleProfile,
   ChangeProfilePassword,
   CommonProfile,
-} from "src/pages/Profile/index";
-import Registration from "src/pages/Registration/Registration";
-import ClientError from "src/pages/404/index";
-import { Locations, Sections } from "./types";
-import ChatElement from "src/pages/Chat";
-import { getUserInfo } from "src/api/Auth/Auth";
-import { appStore } from "../Store/Store";
+} from 'src/pages/Profile/index';
+import Registration from 'src/pages/Registration/Registration';
+import ClientError from 'src/pages/404/index';
+import {Locations, Sections} from './types';
+import ChatElement from 'src/pages/Chat';
+import {getUserInfo} from 'src/api/Auth/Auth';
+import {appStore} from '../Store/Store';
 
 const {
   login,
@@ -57,25 +57,25 @@ export const getSectionByPath = async (path: string | undefined) => {
 };
 
 const ProtectedRoute = async (requiredSection: Sections) => {
-  if (appStore.getState("user")) {
+  if (appStore.getState('user')) {
     return requiredSection;
   }
 
   const response = await getUserInfo();
   if (response.status === 200) {
-    appStore.setState("user", response.json());
+    appStore.setState('user', response.json());
     return requiredSection;
   }
 
   return Login;
 };
 
-export const goHome = () => window.history.pushState("/", "", "/");
-export const goChat = () => window.history.pushState("/chat", "", "/chat");
-export const goLogin = () => window.history.pushState("/login", "", "/login");
+export const goHome = () => window.history.pushState('/', '', '/');
+export const goChat = () => window.history.pushState('/chat', '', '/chat');
+export const goLogin = () => window.history.pushState('/login', '', '/login');
 export const goCommonProfile = () =>
-  window.history.pushState("/profile", "", "/profile");
+  window.history.pushState('/profile', '', '/profile');
 export const goChangeProfileData = () =>
-  window.history.pushState("/change-profile-data", "", "/change-profile-data");
+  window.history.pushState('/change-profile-data', '', '/change-profile-data');
 export const goChangeProfilePassword = () =>
-  window.history.pushState("/change-password", "", "/change-password");
+  window.history.pushState('/change-password', '', '/change-password');

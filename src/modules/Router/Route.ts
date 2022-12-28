@@ -1,7 +1,7 @@
 // import { isEqual } from "../../utils/isEqual";
 // import { render } from "../../utils/renderDOM";
 
-import { Sections } from "./types";
+import {Sections} from './types';
 
 class Route {
   public pathname: string;

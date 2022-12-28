@@ -1,4 +1,4 @@
-import { AppState, ICustomEvent } from "./types";
+import {AppState, ICustomEvent} from './types';
 
 class Store {
   static instance: null | Store = null;
@@ -20,7 +20,7 @@ class Store {
   }
 
   public getState<T extends AppState, K extends keyof T>(
-    name: K
+      name: K
   ): T[K] | undefined | null {
     if (name in this.state) {
       return this.state[name as keyof AppState];
@@ -29,7 +29,7 @@ class Store {
   }
 
   public setState(name: keyof AppState, value: any, flag?: boolean) {
-    if (flag && typeof this.state[name] === "object") {
+    if (flag && typeof this.state[name] === 'object') {
       this.state[name] = {
         ...(this.state[name] as unknown as Object),
         ...value,
@@ -68,15 +68,15 @@ class Store {
    * );
    */
   subscribe = (
-    storeType: keyof AppState,
-    callBack: (event: ICustomEvent) => void
+      storeType: keyof AppState,
+      callBack: (event: ICustomEvent) => void
   ) => {
     document.addEventListener(storeType, callBack);
   };
 
   unSubscribe = (
-    storeType: keyof AppState,
-    callBack: EventListenerOrEventListenerObject
+      storeType: keyof AppState,
+      callBack: EventListenerOrEventListenerObject
   ) => {
     document.removeEventListener(storeType, callBack);
   };

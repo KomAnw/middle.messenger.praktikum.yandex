@@ -1,14 +1,14 @@
-import { HTTPMethod, Options, METHODS, FetchOptions } from "./types";
+import {HTTPMethod, Options, METHODS, FetchOptions} from './types';
 
 const queryStringify = (
-  data: { [s: string]: unknown } | ArrayLike<unknown>
+    data: { [s: string]: unknown } | ArrayLike<unknown>
 ) => {
   const entries = Object.entries(data).map(([key, val]) => `${key}=${val}`);
-  return `?${entries.join("&")}`;
+  return `?${entries.join('&')}`;
 };
 
 const request = (url: string, options: Options) => {
-  const { data, headers, methodType, timeout } = options;
+  const {data, headers, methodType, timeout} = options;
 
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -23,9 +23,9 @@ const request = (url: string, options: Options) => {
     xhr.withCredentials = true;
     xhr.timeout = timeout ? timeout : 5000;
     xhr.onload = () => resolve(xhr);
-    xhr.onerror = () => reject("Error occured");
-    xhr.onabort = () => reject("Aborted");
-    xhr.ontimeout = () => reject("Timeout occured");
+    xhr.onerror = () => reject('Error occured');
+    xhr.onabort = () => reject('Aborted');
+    xhr.ontimeout = () => reject('Timeout occured');
 
     if (methodType === METHODS.GET || !data) {
       xhr.send();
@@ -44,13 +44,13 @@ const get: HTTPMethod = (url, options) => {
 };
 
 const put: HTTPMethod = (url, options) =>
-  request(url, { ...options, methodType: METHODS.PUT });
+  request(url, {...options, methodType: METHODS.PUT});
 
 const post: HTTPMethod = (url, options) =>
-  request(url, { ...options, methodType: METHODS.POST });
+  request(url, {...options, methodType: METHODS.POST});
 
 const del: HTTPMethod = (url, options) =>
-  request(url, { ...options, methodType: METHODS.DELETE });
+  request(url, {...options, methodType: METHODS.DELETE});
 
 const defineMethod = (method: keyof typeof METHODS | undefined) => {
   switch (method) {
@@ -69,7 +69,7 @@ const defineMethod = (method: keyof typeof METHODS | undefined) => {
 
 const Fetch = async (url: string, options?: FetchOptions) => {
   const method = defineMethod(options?.methodType);
-  const { response, status } = (await method(url, options)) as XMLHttpRequest;
+  const {response, status} = (await method(url, options)) as XMLHttpRequest;
 
   const result = {
     response,

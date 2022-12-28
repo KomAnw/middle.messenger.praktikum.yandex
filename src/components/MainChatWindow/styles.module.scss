@@ -7,7 +7,7 @@
   gap: 10px;
   position: relative;
   align-content: space-between;
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
 
   .messages {
     justify-self: center;
@@ -33,9 +33,11 @@
     padding: 0 10px;
     align-self: flex-end;
   }
+  /* stylelint-disable-next-line */
   &:has(component) .messageContainer {
     display: none;
   }
+
   .messageContainer {
     width: calc(100% - 30px);
     display: grid;

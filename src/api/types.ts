@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum ContentTypes {
   applicationJSON = "application/json",
   muiltiparFormData = "multipart/form-data",

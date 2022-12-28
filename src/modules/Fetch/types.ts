@@ -1,3 +1,4 @@
+/* eslint-disable */
 export type HTTPMethod = (
   url: string,
   options?: FetchOptions

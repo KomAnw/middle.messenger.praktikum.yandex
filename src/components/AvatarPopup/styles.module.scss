@@ -1,8 +1,8 @@
 .popup {
   width: 340px;
   height: 272px;
-  background: #ffffff;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  background: #fff;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
   border-radius: 12px;
   display: grid;
   align-content: space-between;
@@ -20,7 +20,7 @@
   }
 
   .title {
-    font-family: var(--Inter);
+    font-family: var(--inter);
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -32,20 +32,21 @@
 
   .status {
     margin: 0;
-    font-family: "Inter";
+    font-family: var(--inter);
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
     text-align: center;
     color: red;
+
     &:empty {
       display: none;
     }
   }
 
   input[type="file"] {
-    font-family: "Inter";
+    font-family: var(--inter);
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
@@ -53,7 +54,7 @@
   }
 
   .button {
-    font-family: "Inter";
+    font-family: var(--inter);
     font-style: normal;
     font-weight: 500;
     font-size: 13px;

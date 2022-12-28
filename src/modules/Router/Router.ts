@@ -1,6 +1,6 @@
-import { Sections } from "./types";
-import Route from "./Route";
-import { getSectionByPath, locationPaths } from "./routes";
+import {Sections} from './types';
+import Route from './Route';
+import {getSectionByPath, locationPaths} from './routes';
 
 class Router {
   static instance: null | Router = null;
@@ -25,7 +25,7 @@ class Router {
     this.listen();
   }
 
-  createRoute(path: string = "/404", section: Sections) {
+  createRoute(path: string = '/404', section: Sections) {
     const route = section && new Route(path, section);
     route && this.routes.push(route);
     return route;
@@ -50,8 +50,9 @@ class Router {
     };
 
     const pushState = history.pushState;
-    this.history.pushState = function (path: string) {
+    this.history.pushState = function(path: string) {
       // @ts-expect-error
+      // eslint-disable-next-line
       pushState.apply(history, arguments);
       path !== currentRoute?.pathname && callBack(path);
     };

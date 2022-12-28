@@ -1,4 +1,4 @@
-import { NestedComponent } from "src/modules/Component/types";
+import {NestedComponent} from 'src/modules/Component/types';
 
 export type ErrorProps = {
   error: string;

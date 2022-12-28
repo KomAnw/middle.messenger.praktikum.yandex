@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Registration from "src/pages/Registration/Registration";
 import Login from "src/pages/Login/Login";
 import ChatElement from "src/pages/Chat";

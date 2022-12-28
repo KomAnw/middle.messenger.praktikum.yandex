@@ -1,9 +1,9 @@
-import App from "src/app/App";
-import { Props } from "src/modules/Component/types";
-import template from "bundle-text:./ChatPanel.html";
-import * as styles from "./styles.module.scss";
-import Component from "src/modules/Component";
-import { AddUserPopup, RemoveUserPopup } from "../UserPopup/UserPopup";
+import App from 'src/app/App';
+import {Props} from 'src/modules/Component/types';
+import template from 'bundle-text:./ChatPanel.html';
+import * as styles from './styles.module.scss';
+import Component from 'src/modules/Component';
+import {AddUserPopup, RemoveUserPopup} from '../UserPopup/UserPopup';
 
 export class ChatPanelComponent<P extends Props> extends Component<P> {
   renderPopup: (node: HTMLElement) => void;
@@ -14,11 +14,11 @@ export class ChatPanelComponent<P extends Props> extends Component<P> {
   }
 
   addListners() {
-    this.getNode.querySelector("#add")?.addEventListener("click", () => {
+    this.getNode.querySelector('#add')?.addEventListener('click', () => {
       this.renderPopup(AddUserPopup());
     });
 
-    this.getNode.querySelector("#remove")?.addEventListener("click", () => {
+    this.getNode.querySelector('#remove')?.addEventListener('click', () => {
       this.renderPopup(RemoveUserPopup());
     });
   }
@@ -26,7 +26,7 @@ export class ChatPanelComponent<P extends Props> extends Component<P> {
 
 const ChatPanel = () => {
   const componentData = {
-    className: { ...styles },
+    className: {...styles},
   };
 
   return new ChatPanelComponent(template, componentData);

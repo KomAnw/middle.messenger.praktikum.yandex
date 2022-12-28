@@ -1,4 +1,4 @@
-import { ChatData } from "src/pages/Chat/types";
+import {ChatData} from 'src/pages/Chat/types';
 
 export type AppState = {
   user: User | null;

@@ -1,6 +1,6 @@
-import "./App.scss";
-import Router from "src/modules/Router/Router";
-import { Sections } from "src/modules/Router/types";
+import './App.scss';
+import Router from 'src/modules/Router/Router';
+import {Sections} from 'src/modules/Router/types';
 
 class Application {
   private root: HTMLElement;
@@ -8,7 +8,7 @@ class Application {
 
   constructor(rootTag: string) {
     this.root = document.querySelector(rootTag)!;
-    this.popup = document.getElementById("popup")!;
+    this.popup = document.getElementById('popup')!;
     const renderIntoRoot = this.renderIntoRoot.bind(this);
     new Router(renderIntoRoot).start();
   }
@@ -27,6 +27,6 @@ class Application {
   }
 }
 
-const App = new Application("#root");
+const App = new Application('#root');
 Object.freeze(App);
 export default App;

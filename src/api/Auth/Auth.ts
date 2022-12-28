@@ -1,20 +1,20 @@
-import Fetch from "src/modules/Fetch/Fetch";
-import addInstancePath from "src/utils/generateUrl";
-import { AUTH } from "../constants";
-import { AuthOperations } from "./types";
-import { FetchOptions, METHODS } from "src/modules/Fetch/types";
-import { ContentTypes } from "../types";
-import { RegistrationFormData } from "src/pages/Registration/types";
-import { LoginFormData } from "src/pages/Login/types";
+import Fetch from 'src/modules/Fetch/Fetch';
+import addInstancePath from 'src/utils/generateUrl';
+import {AUTH} from '../constants';
+import {AuthOperations} from './types';
+import {FetchOptions, METHODS} from 'src/modules/Fetch/types';
+import {ContentTypes} from '../types';
+import {RegistrationFormData} from 'src/pages/Registration/types';
+import {LoginFormData} from 'src/pages/Login/types';
 
-const { POST } = METHODS;
-const { applicationJSON } = ContentTypes;
+const {POST} = METHODS;
+const {applicationJSON} = ContentTypes;
 const generateUrl = addInstancePath(AUTH);
 
 const basePostOptions: FetchOptions = {
   methodType: POST,
   headers: {
-    "content-type": applicationJSON,
+    'content-type': applicationJSON,
   },
 };
 

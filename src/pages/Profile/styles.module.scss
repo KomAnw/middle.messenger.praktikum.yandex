@@ -78,6 +78,7 @@
       text-align: left;
     }
   }
+
   .chatLink {
     justify-self: flex-start;
     margin: 0;
@@ -92,6 +93,7 @@
     border: none;
     outline: none;
     cursor: pointer;
+
     &:hover {
       color: var(--blue);
     }

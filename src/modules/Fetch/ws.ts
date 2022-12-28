@@ -1,6 +1,5 @@
-import { appStore } from "src/modules/Store/Store";
-import { ICustomWSSEvent } from "../../api/types";
-import { WS_ENDPOINT } from "../../api/constants";
+import {ICustomWSSEvent} from '../../api/types';
+import {WS_ENDPOINT} from '../../api/constants';
 
 type WSProps = {
   userId: number;
@@ -24,38 +23,38 @@ export const WSS = async ({
 
     const get = (offset: number) => {
       socket.send(
-        JSON.stringify({
-          content: String(offset),
-          type: "get old",
-        })
+          JSON.stringify({
+            content: String(offset),
+            type: 'get old',
+          })
       );
     };
 
     const send = (content: string) => {
       socket.send(
-        JSON.stringify({
-          content: content,
-          type: "message",
-        })
+          JSON.stringify({
+            content: content,
+            type: 'message',
+          })
       );
     };
 
-    socket.addEventListener("open", () => {
-      resolve({ socket, send, get });
+    socket.addEventListener('open', () => {
+      resolve({socket, send, get});
       setInterval(() => {
-        socket.send(JSON.stringify({ type: "ping" }));
+        socket.send(JSON.stringify({type: 'ping'}));
       }, 20000);
     });
 
-    socket.addEventListener("error", (event: ICustomWSSEvent) => {
+    socket.addEventListener('error', (event: ICustomWSSEvent) => {
       reject(event.message);
     });
 
-    socket.addEventListener("close", (event) => {
+    socket.addEventListener('close', (event) => {
       if (event.wasClean) {
-        console.log("Соединение закрыто чисто");
+        console.log('Соединение закрыто чисто');
       } else {
-        console.log("Обрыв соединения");
+        console.log('Обрыв соединения');
       }
 
       console.log(`Код: ${event.code} | Причина: ${event.reason}`);

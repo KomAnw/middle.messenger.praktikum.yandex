@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum AuthOperations {
   signup = "signup",
   signin = "signin",

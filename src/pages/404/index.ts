@@ -1,5 +1,5 @@
-import archive from "src/archive.json";
-import Error from "src/components/Error/Error";
+import archive from 'src/archive.json';
+import Error from 'src/components/Error/Error';
 
 const ClientError = () =>
   Error({
