@@ -1,114 +1,54 @@
+import {appStore} from './../../modules/Store/Store';
 import ChangePassword from '../ChangePassword/ChangePassword';
+import {mokDataPassword, ProfileFields} from './constants';
 import Profile from './Profile';
+import {User} from 'src/modules/Store/types';
 
-// ! this used only for test
-export const mokData = [
-  {
-    fieldName: 'Почта',
-    data: 'sweet-body1@gmail.com',
-    inputName: 'email',
-    validationRules: {
-      required: true,
-      email: true,
-    },
-  },
-  {
-    fieldName: 'Логин',
-    data: 'Родитель',
-    inputName: 'login',
-    validationRules: {
-      required: true,
-      min: 3,
-    },
-  },
-  {
-    fieldName: 'Имя',
-    data: 'Родитель',
-    inputName: 'first_name',
-    validationRules: {
-      required: true,
-      min: 3,
-      witoutNumbers: true,
-    },
-  },
-  {
-    fieldName: 'Фамилия',
-    data: 'РодительРодитель',
-    inputName: 'second_name',
-    validationRules: {
-      required: true,
-      min: 3,
-      witoutNumbers: true,
-    },
-  },
-  {
-    fieldName: 'Имя в чате',
-    data: 'nextGenderGeneration',
-    inputName: 'display_name',
-    validationRules: {
-      required: true,
-      min: 3,
-    },
-  },
-  {
-    fieldName: 'Телефон',
-    data: '+79999999999',
-    inputName: 'phone',
-    validationRules: {
-      required: true,
-      min: 3,
-      max: 12,
-      onlyNumbers: true,
-      phone: true,
-    },
-  },
-];
+export const CommonProfile = () => {
+  const user = (appStore.getState('user') as User) || ({} as User);
 
-export const mokDataPassword = [
-  {
-    fieldName: 'Старый пароль',
-    data: '123213123',
-    inputName: 'oldPassword',
-    validationRules: {
-      required: true,
-      min: 3,
-    },
-  },
-  {
-    fieldName: 'Новый пароль',
-    data: '123123213',
-    inputName: 'newPassword',
-    validationRules: {
-      required: true,
-      min: 3,
-    },
-  },
-  {
-    fieldName: 'Новый пароль (еще раз)',
-    data: '12321312321',
-    inputName: 'newPassword_again',
-    validationRules: {
-      required: true,
-      min: 3,
-    },
-  },
-];
+  const fieldsProps = ProfileFields.map((field) => ({
+    ...field,
+    data: user[field.inputName as keyof typeof user],
+  }));
 
-export const CommonProfile = Profile({
-  name: 'Герман',
-  avatarProps: {},
-  fieldsProps: mokData,
-  disabled: 'disabled',
-});
+  const {first_name, second_name} = user;
 
-export const ChangebleProfile = Profile({
-  name: 'Герман',
-  avatarProps: {},
-  fieldsProps: mokData,
-});
+  return Profile({
+    name: `${first_name} ${second_name}`,
+    avatarProps: {
+      link: user?.avatar || undefined,
+      alt: 'Аватар пользователя',
+    },
+    // @ts-expect-error
+    fieldsProps,
+    disabled: 'disabled',
+  });
+};
 
-export const ChangeProfilePassword = ChangePassword({
-  name: 'Герман',
-  avatarProps: {},
-  fieldsProps: mokDataPassword,
-});
+export const ChangebleProfile = () => {
+  const user = (appStore.getState('user') as User) || ({} as User);
+  const fieldsProps = ProfileFields.map((field) => ({
+    ...field,
+    data: user[field.inputName as keyof typeof user],
+  }));
+
+  const {first_name, second_name} = user;
+  return Profile({
+    name: `${first_name} ${second_name}`,
+    avatarProps: {link: user.avatar || undefined, alt: 'Аватар пользователя'},
+    // @ts-expect-error
+    fieldsProps,
+  });
+};
+
+export const ChangeProfilePassword = () => {
+  const user = (appStore.getState('user') as User) || ({} as User);
+  const {first_name, second_name} = user;
+
+  return ChangePassword({
+    name: `${first_name} ${second_name}`,
+    avatarProps: {link: user.avatar || undefined, alt: 'Аватар пользователя'},
+    fieldsProps: mokDataPassword,
+  });
+};

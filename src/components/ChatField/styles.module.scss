@@ -1,4 +1,5 @@
 .wrapper {
+  position: relative;
   display: grid;
   cursor: pointer;
 
@@ -61,6 +62,7 @@
       grid-template-rows: max-content max-content;
       justify-content: end;
       justify-items: end;
+      align-content: center;
 
       .timer {
         font-family: var(--inter);
@@ -90,5 +92,25 @@
         }
       }
     }
+  }
+
+  .who {
+    font-family: var(--inter);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    color: var(--blue);
+    margin: 0;
+  }
+
+  .remove {
+    border: none;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    outline: none;
+    cursor: pointer;
   }
 }

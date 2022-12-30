@@ -1,0 +1,13 @@
+.chatPanel {
+  background: #efefef;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
+
+  .add,
+  .remove {
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+  }
+}

@@ -1,16 +1,29 @@
-<div class="{{className.wrapper}}">
+<div class="{{className.wrapper}}" id="{{id}}">
+  <button class="{{className.remove}} remove" title="удалить чат">
+    &#10006;
+  </button>
   <hr class="{{className.divider}}" />
   <div class="{{className.container}}">
     <div class="{{className.left}}">
-      <div class="{{className.avatar}}"></div>
+      <img
+        class="{{className.avatar}}"
+        src="https://ya-praktikum.tech/api/v2/resources{{avatar}}"
+        alt="Картинка чата"
+      />
       <div class="{{className.person}}">
-        <p class="{{className.name}}">{{personName}}</p>
-        <p class="{{className.message}}">{{personMessage}}</p>
+        <p class="{{className.name}}">{{title}}</p>
+        <p class="{{className.message}}">
+          <span class="{{className.who}}"
+            >{{last_message.user.display_name}}: </span
+          >{{last_message.content}}
+        </p>
       </div>
     </div>
     <div class="{{className.right}}">
       <p class="{{className.timer}}">{{time}}</p>
-      <p class="{{className.unread}}" value="{{unreadMessages}}">{{unreadMessages}}</p>
+      <p class="{{className.unread}}" value="{{unreadMessages}}">
+        {{unread_count}}
+      </p>
     </div>
   </div>
 </div>

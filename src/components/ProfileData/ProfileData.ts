@@ -1,4 +1,3 @@
-import {ValidationValues} from './../../modules/Validator/types';
 import template from 'bundle-text:./ProfileData.html';
 import Component from 'src/modules/Component';
 import {Props} from 'src/modules/Component/types';
@@ -18,8 +17,8 @@ export class ProfileDataComponent<P extends Props> extends Component<P> {
     this.input = this.getNode.querySelector('input')!;
     this.errorField = this.getNode.querySelector('span')!;
     this.validator = new Validator(
-        this.makeErorr.bind(this),
-        this.removeErorr.bind(this)
+        this.makeError.bind(this),
+        this.removeError.bind(this)
     );
   }
 
@@ -40,42 +39,28 @@ export class ProfileDataComponent<P extends Props> extends Component<P> {
   }
 
   runValidation() {
-    this.validator.checkValidation(
-        this.input,
-      this.getProps.validationRules as ValidationValues
-    );
+    this.validator.checkValidation(this.input, this.getProps.validationRules!);
   }
 
-  makeErorr(error: string) {
+  makeError(error: string) {
     this.errorField.textContent = error;
     this.input.setCustomValidity(error);
     this.isValid = false;
   }
 
-  removeErorr(error: string) {
+  removeError(error: string) {
     this.errorField.textContent = error;
     this.input.setCustomValidity(error);
     this.isValid = true;
   }
 }
 
-const ProfileData = ({
-  fieldName,
-  data = '',
-  inputName,
-  disabled,
-  type = 'text',
-  validationRules,
-}: ProfileDataProps) => {
+const ProfileData = (props: ProfileDataProps) => {
+  const {data} = props;
   const componentData = {
-    fieldName,
-    data,
+    ...props,
     value: data,
-    disabled,
-    type,
-    inputName,
     className: {...styles},
-    validationRules,
   };
 
   return new ProfileDataComponent(template, componentData);

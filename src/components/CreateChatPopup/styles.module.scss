@@ -1,0 +1,23 @@
+.container {
+  width: 340px;
+  background: var(--white);
+  padding: 40px 30px;
+  border-radius: 12px;
+  display: grid;
+  gap: 35px;
+  justify-items: center;
+
+  .title {
+    font-family: var(--inter);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+    color: #1e1e1e;
+  }
+
+  custom-component {
+    width: 100%;
+    text-align: center;
+  }
+}

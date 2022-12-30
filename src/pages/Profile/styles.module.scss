@@ -78,4 +78,24 @@
       text-align: left;
     }
   }
+
+  .chatLink {
+    justify-self: flex-start;
+    margin: 0;
+    color: #999;
+    font-family: var(--inter);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--blue);
+    }
+  }
 }

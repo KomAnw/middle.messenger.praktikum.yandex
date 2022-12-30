@@ -1,14 +1,15 @@
 import {Props} from 'src/modules/Component/types';
-import {InputComponent} from './components/Input/Input';
-import {ProfileDataComponent} from './components/ProfileData/ProfileData';
-import {NestedComponent, NestedComponents} from './modules/Component/types';
+import {InputComponent} from '../components/Input/Input';
+import {ProfileDataComponent} from '../components/ProfileData/ProfileData';
+import {NestedComponent, NestedComponents} from '../modules/Component/types';
 
 export const onSubmitFomsHandler = (
     form: HTMLFormElement,
-    nestedComponents: NestedComponents
+    nestedComponents: NestedComponents,
+    callBack: Function
 ) => {
   let validationResult: boolean[] = [];
-  let userInputData: { [key: string]: string } = {};
+  let userInputData: Record<string, string> = {};
   let isFormValid = false;
 
   const typeGuard = (
@@ -33,6 +34,7 @@ export const onSubmitFomsHandler = (
       }
     }
     isFormValid = validationResult.every((elem) => !!elem);
+    isFormValid && callBack(userInputData);
     console.log({
       ...userInputData,
       isFormValid,

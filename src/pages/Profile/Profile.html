@@ -1,4 +1,10 @@
 <main class="{{className.profile}}">
+  <button
+    class="{{className.chatLink}}"
+    onclick="window.history.pushState('/chat', null, '/chat');"
+  >
+    <Чаты
+  </button>
   <form class="{{className.form}}">
     <div class="{{className.top}}">
       <component id="Avatar"></component>
@@ -17,7 +23,7 @@
       <div class="{{className.button}}">
         <button
           class="{{className.change}} {{className.common}}"
-          onclick="window.history.pushState({}, null, '/change-profile-data')"
+          onclick="window.history.pushState('/change-profile-data', null, '/change-profile-data')"
         >
           Изменить данные
         </button>
@@ -26,13 +32,15 @@
       <div class="{{className.button}}">
         <button
           class="{{className.change}} {{className.common}}"
-          onclick="window.history.pushState({}, null, '/change-password')"
+          onclick="window.history.pushState('/change-password', null, '/change-password')"
         >
           Изменить пароль
         </button>
         <hr class="{{className.divider}}" />
       </div>
-      <button class="{{className.exit}} {{className.common}}">Выйти</button>
+      <button class="{{className.exit}} {{className.common}} exit">
+        Выйти
+      </button>
     </div>
   </form>
 </main>

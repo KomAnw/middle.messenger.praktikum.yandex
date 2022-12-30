@@ -1,72 +1,29 @@
 import './App.scss';
-import Login from '../pages/Login/Login';
-import Registration from '../pages/Registration/Registration';
-import {
-  ChangebleProfile,
-  ChangeProfilePassword,
-  CommonProfile,
-} from '../pages/Profile';
-import {ChatComponent} from '../pages/Chat';
-import {ClientError} from 'src/pages/404';
-import {ServerError} from 'src/pages/500';
+import Router from 'src/modules/Router/Router';
+import {Sections} from 'src/modules/Router/types';
 
 class Application {
   private root: HTMLElement;
+  private popup: HTMLElement;
 
   constructor(rootTag: string) {
     this.root = document.querySelector(rootTag)!;
-    this.listenApp();
+    this.popup = document.getElementById('popup')!;
+    const renderIntoRoot = this.renderIntoRoot.bind(this);
+    new Router(renderIntoRoot).start();
   }
 
-  public bootstrap() {
-    this.renderComponentByLocation();
+  public renderPopup = (node: HTMLElement) => {
+    this.popup.append(node);
+  };
+
+  private async renderIntoRoot(section: Sections) {
+    this.removeFromRoot();
+    this.root.appendChild(await section());
   }
 
-  private renderComponentByLocation() {
-    this.root.firstChild && this.root.removeChild(this.root.firstChild);
-    switch (window.location.pathname) {
-      case '/login':
-        this.renderIntoRoot(Login());
-        break;
-      case '/registration':
-        this.renderIntoRoot(Registration());
-        break;
-      case '/404':
-        this.renderIntoRoot(ClientError);
-        break;
-      case '/500':
-        this.renderIntoRoot(ServerError);
-        break;
-      case '/profile':
-        this.renderIntoRoot(CommonProfile);
-        break;
-      case '/change-profile-data':
-        this.renderIntoRoot(ChangebleProfile);
-        break;
-      case '/change-password':
-        this.renderIntoRoot(ChangeProfilePassword);
-        break;
-      case '/chat':
-        this.renderIntoRoot(ChatComponent);
-        break;
-      default:
-        this.renderIntoRoot(Login());
-        break;
-    }
-  }
-
-  private renderIntoRoot(tempate: HTMLElement) {
-    this.root.appendChild(tempate);
-  }
-
-  private listenApp() {
-    const callMethod = () => this.renderComponentByLocation();
-    const pushState = history.pushState;
-    history.pushState = function() {
-      // @ts-expect-error
-      pushState.apply(history, arguments);
-      callMethod();
-    };
+  private removeFromRoot() {
+    this.root.firstChild?.remove();
   }
 }
 

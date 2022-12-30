@@ -1,12 +1,19 @@
 class CustomHTMLComponent extends HTMLElement {
-  callback: Function;
+  componentDidMount: Function;
+  componentWillUnmount: Function;
 
-  constructor(callback: Function) {
+  constructor(componentDidMount: Function, componentWillUnmount: Function) {
     super();
-    this.callback = callback;
+    this.componentDidMount = componentDidMount;
+    this.componentWillUnmount = componentWillUnmount;
   }
+
   connectedCallback() {
-    this.callback();
+    this.componentDidMount();
+  }
+
+  disconnectedCallback() {
+    this.componentWillUnmount();
   }
 }
 

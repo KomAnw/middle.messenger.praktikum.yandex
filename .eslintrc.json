@@ -9,6 +9,7 @@
     "require-jsdoc": 0,
     "prefer-rest-params": 1,
     "guard-for-in": 0,
-    "prefer-promise-reject-errors": 0
+    "prefer-promise-reject-errors": 0,
+    "camelcase": "off"
   }
 }

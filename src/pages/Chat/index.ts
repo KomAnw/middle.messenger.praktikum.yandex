@@ -1,36 +1,21 @@
-import Chat from './Chat';
+import { ChatData } from "src/pages/Chat/types";
+import { appStore } from "./../../modules/Store/Store";
+import { getChats } from "src/api/Chats/Chats";
+import Chat from "./Chat";
 
-const mok = [
-  {
-    personName: 'Артур',
-    personMessage: 'Друзья, у меня для вас особенный выпуск новостей!...',
-    time: '18:30',
-    unreadMessages: '1',
-  },
-  {
-    personName: 'Артур',
-    personMessage: 'felaf vsdmvlk fewjfmwe',
-    time: '18:30',
-    unreadMessages: '1',
-  },
-  {
-    personName: 'Артур',
-    personMessage: 'Миллионы россиян ежедневно проводят десятки часов свое...',
-    time: '18:30',
-    unreadMessages: '2',
-  },
-  {
-    personName: 'Артур',
-    personMessage: 'Друзья, у меня для вас особенный выпуск новостей!...',
-    time: '18:30',
-    unreadMessages: '',
-  },
-  {
-    personName: 'Артур',
-    personMessage: 'Миллионы россиян ежедневно проводят десятки часов свое...',
-    time: '18:30',
-    unreadMessages: '',
-  },
-];
+const ChatElement = async () => {
+  const chats = appStore.getState("chats");
+  if (chats) {
+    return Chat({ chatsData: chats as ChatData[] });
+  }
 
-export const ChatComponent = Chat({chatsData: mok});
+  try {
+    const { ok, json } = await getChats();
+    ok && appStore.setState("chats", json());
+    return Chat({ chatsData: json() });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default ChatElement;

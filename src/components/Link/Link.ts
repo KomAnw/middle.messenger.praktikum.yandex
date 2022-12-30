@@ -11,7 +11,11 @@ export class LinkComponent<P extends Props> extends Component<P> {
 
   linkHandler() {
     this.getNode.addEventListener('click', () =>
-      window.history.pushState({}, '', `${this.getProps.url}`)
+      window.history.pushState(
+          `${this.getProps.url}`,
+          '',
+          `${this.getProps.url}`
+      )
     );
   }
 

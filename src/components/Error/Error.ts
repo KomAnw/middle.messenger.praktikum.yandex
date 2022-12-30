@@ -2,7 +2,7 @@ import {Props} from 'src/modules/Component/types';
 import template from 'bundle-text:./Error.html';
 import * as styles from './styles.module.scss';
 import archive from 'src/archive.json';
-import {ComponentData, ErrorProps} from './types';
+import {ErrorProps} from './types';
 import Link from '../Link/Link';
 import Component from 'src/modules/Component';
 
@@ -18,7 +18,7 @@ class ErrorComponent<P extends Props> extends Component<P> {
 }
 
 const Error = ({error, errorMessage}: ErrorProps) => {
-  const componentData: ComponentData = {
+  const componentData = {
     error,
     errorMessage,
     className: {...styles},
