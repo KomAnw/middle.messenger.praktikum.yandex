@@ -1,4 +1,4 @@
-import {isArrayOrObject} from './commonHelpers';
+import { isArrayOrObject } from './commonHelpers';
 
 export type PlainObject<T = unknown> = {
   // eslint-disable-next-line

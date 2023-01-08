@@ -1,12 +1,13 @@
 import App from 'src/app/App';
-import {Props} from 'src/modules/Component/types';
-import template from 'bundle-text:./ChatPanel.html';
-import * as styles from './styles.module.scss';
+import { Props } from 'src/modules/Component/types';
 import Component from 'src/modules/Component';
-import {AddUserPopup, RemoveUserPopup} from '../UserPopup/UserPopup';
+import template from './ChatPanel.html';
+import styles from './styles.module.scss';
+import { AddUserPopup, RemoveUserPopup } from '../UserPopup/UserPopup';
 
 export class ChatPanelComponent<P extends Props> extends Component<P> {
   renderPopup: (node: HTMLElement) => void;
+
   constructor(template: string, props: P) {
     super(template, props);
     this.renderPopup = App.renderPopup;
@@ -26,7 +27,7 @@ export class ChatPanelComponent<P extends Props> extends Component<P> {
 
 const ChatPanel = () => {
   const componentData = {
-    className: {...styles},
+    className: { ...styles }
   };
 
   return new ChatPanelComponent(template, componentData);

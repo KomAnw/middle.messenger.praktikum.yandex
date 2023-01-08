@@ -1,15 +1,18 @@
-import {ValidationValues} from './../../modules/Validator/types';
-import template from 'bundle-text:./Input.html';
-import * as styles from './styles.module.scss';
-import {InputProps} from './types';
 import Component from 'src/modules/Component/Component';
-import {Validator} from 'src/modules/Validator/Validator';
-import {Props} from 'src/modules/Component/types';
+import { Validator } from 'src/modules/Validator/Validator';
+import { Props } from 'src/modules/Component/types';
+import { ValidationValues } from '../../modules/Validator/types';
+import template from './Input.html';
+import styles from './styles.module.scss';
+import { InputProps } from './types';
 
 export class InputComponent<P extends Props> extends Component<P> {
   public isValid: boolean;
+
   private input: HTMLInputElement;
+
   private errorField: HTMLElement;
+
   private validator: Validator;
 
   constructor(template: string, props: P) {
@@ -17,10 +20,7 @@ export class InputComponent<P extends Props> extends Component<P> {
     this.isValid = false;
     this.input = this.getNode.querySelector('input')!;
     this.errorField = this.getNode.querySelector('p')!;
-    this.validator = new Validator(
-        this.makeErorr.bind(this),
-        this.removeErorr.bind(this)
-    );
+    this.validator = new Validator(this.makeErorr.bind(this), this.removeErorr.bind(this));
   }
 
   get value() {
@@ -32,23 +32,18 @@ export class InputComponent<P extends Props> extends Component<P> {
   }
 
   componentDidMount(): void {
-    const {validationRules} = this.getProps;
-    validationRules &&
-      this.input.addEventListener('focus', this.runValidation.bind(this));
-    validationRules &&
-      this.input.addEventListener('blur', this.runValidation.bind(this));
+    const { validationRules } = this.getProps;
+    validationRules && this.input.addEventListener('focus', this.runValidation.bind(this));
+    validationRules && this.input.addEventListener('blur', this.runValidation.bind(this));
   }
 
   runValidation() {
-    const {validationRules} = this.getProps;
-    this.validator.checkValidation(
-        this.input,
-      validationRules as ValidationValues
-    );
+    const { validationRules } = this.getProps;
+    this.validator.checkValidation(this.input, validationRules as ValidationValues);
   }
 
   inputAnimationHandler() {
-    const element = this.getNode.querySelector(`input`);
+    const element = this.getNode.querySelector('input');
     element?.addEventListener('keyup', (event: Event) => {
       const target = event.target as HTMLInputElement;
       element.setAttribute('value', target.value);
@@ -72,18 +67,13 @@ export class InputComponent<P extends Props> extends Component<P> {
   }
 }
 
-const Input = ({
-  type,
-  name,
-  placeholderText,
-  validationRules,
-}: InputProps) => {
+const Input = ({ type, name, placeholderText, validationRules }: InputProps) => {
   const componentData = {
     type,
     name,
     placeholder: placeholderText,
-    className: {...styles},
-    validationRules,
+    className: { ...styles },
+    validationRules
   };
 
   return new InputComponent(template, componentData);

@@ -1,23 +1,21 @@
-import {Props} from 'src/modules/Component/types';
-import {InputComponent} from '../components/Input/Input';
-import {ProfileDataComponent} from '../components/ProfileData/ProfileData';
-import {NestedComponent, NestedComponents} from '../modules/Component/types';
+import { Props } from 'src/modules/Component/types';
+import { InputComponent } from '../components/Input/Input';
+import { ProfileDataComponent } from '../components/ProfileData/ProfileData';
+import { NestedComponent, NestedComponents } from '../modules/Component/types';
 
 export const onSubmitFomsHandler = (
-    form: HTMLFormElement,
-    nestedComponents: NestedComponents,
-    callBack: Function
+  form: HTMLFormElement,
+  nestedComponents: NestedComponents,
+  callBack: Function
 ) => {
   let validationResult: boolean[] = [];
   let userInputData: Record<string, string> = {};
   let isFormValid = false;
 
   const typeGuard = (
-      component: NestedComponent
+    component: NestedComponent
   ): InputComponent<Props> | ProfileDataComponent<Props> | false =>
-    (component instanceof InputComponent ||
-      component instanceof ProfileDataComponent) &&
-    component;
+    (component instanceof InputComponent || component instanceof ProfileDataComponent) && component;
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -29,7 +27,7 @@ export const onSubmitFomsHandler = (
         validationResult.push(input.isValid);
         userInputData = {
           ...userInputData,
-          [input.name]: input.value,
+          [input.name]: input.value
         };
       }
     }
@@ -37,7 +35,7 @@ export const onSubmitFomsHandler = (
     isFormValid && callBack(userInputData);
     console.log({
       ...userInputData,
-      isFormValid,
+      isFormValid
     });
   });
 };

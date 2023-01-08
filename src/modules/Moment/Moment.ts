@@ -10,7 +10,7 @@ const months = [
   'Сентябрь',
   'Октябрь',
   'Ноябрь',
-  'Декабрь',
+  'Декабрь'
 ];
 
 export const Moment = (time: string) => {
@@ -21,8 +21,7 @@ export const Moment = (time: string) => {
     const getHours = date.getHours();
     const getMinutes = date.getMinutes();
     const hours = String(getHours).length === 1 ? `0${getHours}` : getHours;
-    const minutes =
-      String(getMinutes).length === 1 ? `0${getMinutes}` : getMinutes;
+    const minutes = String(getMinutes).length === 1 ? `0${getMinutes}` : getMinutes;
     return `${hours}:${minutes}`;
   };
 
@@ -30,6 +29,6 @@ export const Moment = (time: string) => {
     month: getMonth(),
     time: getTime(),
     date: date.getDate(),
-    year: date.getFullYear(),
+    year: date.getFullYear()
   };
 };

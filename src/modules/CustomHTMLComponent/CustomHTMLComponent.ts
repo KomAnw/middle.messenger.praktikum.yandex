@@ -1,5 +1,6 @@
 class CustomHTMLComponent extends HTMLElement {
   componentDidMount: Function;
+
   componentWillUnmount: Function;
 
   constructor(componentDidMount: Function, componentWillUnmount: Function) {

@@ -1,14 +1,11 @@
-import {ValidationValues} from './types';
-import {
-  errors,
-  mailRegExp,
-  numberRegExp,
-  phoneRegExp,
-} from 'src/components/constants';
+import { errors, mailRegExp, numberRegExp, phoneRegExp } from 'src/components/constants';
+import { ValidationValues } from './types';
 
 export class Validator {
   private errors: { [key: string]: string };
+
   private makeError: Function;
+
   private removeError: Function;
 
   constructor(makeError: Function, removeError: Function) {
@@ -17,13 +14,9 @@ export class Validator {
     this.removeError = removeError;
   }
 
-  public checkValidation(
-      input: HTMLInputElement,
-      validationRules: ValidationValues
-  ) {
-    const value = input.value;
-    const {required, email, min, max, witoutNumbers, onlyNumbers, phone} =
-      validationRules;
+  public checkValidation(input: HTMLInputElement, validationRules: ValidationValues) {
+    const { value } = input;
+    const { required, email, min, max, witoutNumbers, onlyNumbers, phone } = validationRules;
     const {
       requiredFiled,
       emailRequired,
@@ -32,7 +25,7 @@ export class Validator {
       correct,
       numbersUnacceptable,
       onlyNumbersRequired,
-      incorrecPhone,
+      incorrecPhone
     } = this.errors;
 
     switch (true) {

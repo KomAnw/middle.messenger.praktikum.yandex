@@ -1,11 +1,13 @@
-import {isEqual} from 'src/utils/isObjectsEqual';
+import { isEqual } from 'src/utils/isObjectsEqual';
 import CustomHTMLComponent from '../CustomHTMLComponent/CustomHTMLComponent';
 import Templator from '../templator/Templator';
-import {Props} from './types';
+import { Props } from './types';
 
 abstract class Component<P extends Props> {
   private wrapper: HTMLElement | null;
+
   private templator: Templator;
+
   private compiledTemplate: string;
 
   constructor(template: string, private props: P) {
@@ -61,7 +63,7 @@ abstract class Component<P extends Props> {
         return target[prop as keyof P];
       },
       set(target, prop, value) {
-        const oldProps = {...target};
+        const oldProps = { ...target };
         const newProps = target;
         target[prop as keyof P] = value;
         callCDU(oldProps, newProps);
@@ -69,14 +71,14 @@ abstract class Component<P extends Props> {
       },
       deleteProperty() {
         throw new Error('Нет доступа');
-      },
+      }
     });
   }
 
   setProps = (nextProps: Props) => {
     const newProps = {
       ...this.props,
-      ...nextProps,
+      ...nextProps
     };
 
     if (!nextProps || isEqual(this.props, newProps)) {
@@ -109,8 +111,8 @@ abstract class Component<P extends Props> {
 
   createWrapper() {
     this.wrapper = new CustomHTMLComponent(
-        this.dispatchComponentDidMount.bind(this),
-        this.dispatchcomponentWillUnmount.bind(this)
+      this.dispatchComponentDidMount.bind(this),
+      this.dispatchcomponentWillUnmount.bind(this)
     );
     this.wrapper.insertAdjacentHTML('beforeend', this.compiledTemplate);
     this.props.nestedComponents && this.replaceNodesToComponents(this.wrapper);
@@ -122,9 +124,7 @@ abstract class Component<P extends Props> {
   }
 
   private reRender(oldNode: HTMLElement) {
-    const fragment = document
-        .createRange()
-        .createContextualFragment(this.compiledTemplate);
+    const fragment = document.createRange().createContextualFragment(this.compiledTemplate);
     this.props.nestedComponents && this.replaceNodesToComponents(fragment);
 
     const oldChild = oldNode.firstChild!;

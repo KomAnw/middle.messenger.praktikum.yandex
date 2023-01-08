@@ -1,10 +1,8 @@
-import { HTTPMethod, Options, METHODS, FetchOptions } from "./types";
+import { HTTPMethod, Options, METHODS, FetchOptions } from './types';
 
-const queryStringify = (
-  data: { [s: string]: unknown } | ArrayLike<unknown>
-) => {
+const queryStringify = (data: { [s: string]: unknown } | ArrayLike<unknown>) => {
   const entries = Object.entries(data).map(([key, val]) => `${key}=${val}`);
-  return `?${entries.join("&")}`;
+  return `?${entries.join('&')}`;
 };
 
 const request = (url: string, options: Options) => {
@@ -15,17 +13,15 @@ const request = (url: string, options: Options) => {
     xhr.open(methodType, url);
 
     if (headers) {
-      Object.entries(headers).forEach(([key, val]) =>
-        xhr.setRequestHeader(key, val as string)
-      );
+      Object.entries(headers).forEach(([key, val]) => xhr.setRequestHeader(key, val as string));
     }
 
     xhr.withCredentials = true;
-    xhr.timeout = timeout ? timeout : 5000;
+    xhr.timeout = timeout || 5000;
     xhr.onload = () => resolve(xhr);
-    xhr.onerror = () => reject("Error occured");
-    xhr.onabort = () => reject("Aborted");
-    xhr.ontimeout = () => reject("Timeout occured");
+    xhr.onerror = () => reject('Error occured');
+    xhr.onabort = () => reject('Aborted');
+    xhr.ontimeout = () => reject('Timeout occured');
 
     if (methodType === METHODS.GET || !data) {
       xhr.send();
@@ -39,18 +35,15 @@ const get: HTTPMethod = (url, options) => {
   const queryUrl = options && `${url}${queryStringify(options?.data)}`;
 
   return request(queryUrl || url, {
-    methodType: options?.methodType || METHODS.GET,
+    methodType: options?.methodType || METHODS.GET
   });
 };
 
-const put: HTTPMethod = (url, options) =>
-  request(url, { ...options, methodType: METHODS.PUT });
+const put: HTTPMethod = (url, options) => request(url, { ...options, methodType: METHODS.PUT });
 
-const post: HTTPMethod = (url, options) =>
-  request(url, { ...options, methodType: METHODS.POST });
+const post: HTTPMethod = (url, options) => request(url, { ...options, methodType: METHODS.POST });
 
-const del: HTTPMethod = (url, options) =>
-  request(url, { ...options, methodType: METHODS.DELETE });
+const del: HTTPMethod = (url, options) => request(url, { ...options, methodType: METHODS.DELETE });
 
 const defineMethod = (method: keyof typeof METHODS | undefined) => {
   switch (method) {
@@ -90,8 +83,8 @@ const Fetch = async (url: string, options?: FetchOptions) => {
   const result = {
     response,
     status,
-    ok: status >= 200 && status <= 299 ? true : false,
-    json: () => JSON.parse(response),
+    ok: !!(status >= 200 && status <= 299),
+    json: () => JSON.parse(response)
   };
 
   return result;

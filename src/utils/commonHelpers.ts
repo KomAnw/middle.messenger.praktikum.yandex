@@ -1,4 +1,4 @@
-import {PlainObject} from './isObjectsEqual';
+import { PlainObject } from './isObjectsEqual';
 
 export const isArray = (value: unknown): value is [] => Array.isArray(value);
 

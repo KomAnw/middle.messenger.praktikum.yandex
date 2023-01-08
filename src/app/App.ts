@@ -1,9 +1,10 @@
 import './App.scss';
+import { Sections } from 'src/modules/Router/types';
 import Router from 'src/modules/Router/Router';
-import {Sections} from 'src/modules/Router/types';
 
 class Application {
   private root: HTMLElement;
+
   private popup: HTMLElement;
 
   constructor(rootTag: string) {

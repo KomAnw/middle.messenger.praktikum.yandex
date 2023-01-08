@@ -4,6 +4,9 @@
   --grey: #999;
   --black: #1e1e1e;
   --inter: "Inter", sans-serif;
+  --pers-14: rgba(0, 0, 0, 14%);
+  --pers-27: rgba(0, 0, 0, 27%);
+  --pers-70: rgb(0, 0, 0, 70%);
 }
 
 #root {
@@ -29,7 +32,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgb(0 0 0 / 70%);
+    background: var(--pers-70);
   }
 
   &:has(> custom-component) {
