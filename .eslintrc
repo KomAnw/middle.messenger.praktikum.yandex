@@ -29,6 +29,7 @@
     "default-param-last": "warn",
     "guard-for-in": 0,
     "prefer-promise-reject-errors": 0,
-    "camelcase": "off"
+    "camelcase": "off",
+    "lines-between-class-members": ["error", "always", { "exceptAfterOverload": true }]
   }
 }
