@@ -29,6 +29,6 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "test/global.js"],
   "exclude": ["node_modules", "build"]
 }

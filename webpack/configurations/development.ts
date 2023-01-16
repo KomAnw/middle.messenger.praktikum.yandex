@@ -8,7 +8,7 @@ const development: Configuration = {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    static: path.join(__dirname, 'build'),
+    static: path.join(__dirname, './'),
     historyApiFallback: true,
     port: 3000,
     open: true,
