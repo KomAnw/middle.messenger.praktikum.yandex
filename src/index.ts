@@ -3,4 +3,4 @@ import App from './app/App';
 
 App;
 
-console.log(123135fdf);
+console.log(123135);
