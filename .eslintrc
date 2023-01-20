@@ -30,6 +30,6 @@
     "guard-for-in": 0,
     "prefer-promise-reject-errors": 0,
     "camelcase": "off",
-    "lines-between-class-members": ["error", "always", { "exceptAfterOverload": true }]
+    "lines-between-class-members": "off"
   }
 }

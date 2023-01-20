@@ -1,4 +1,5 @@
-import {ValidationValues} from 'src/modules/Validator/types';
+import { ValidationValues } from 'src/modules/Validator/types';
+
 export type InputProps = {
   type: string;
   name: string;

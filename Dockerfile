@@ -8,7 +8,7 @@ RUN yarn
 
 COPY . .
 
-RUN yarn buildV2
+RUN yarn buildDocker
 
 EXPOSE 3000
 
