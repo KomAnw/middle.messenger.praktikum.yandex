@@ -14,7 +14,8 @@
   },
   "lint-staged": {
     "./src/*.{js,ts}": [
-      "yarn eslint:fix"
+      "yarn eslint:fix",
+      "yarn test"
     ]
   },
   "alias": {

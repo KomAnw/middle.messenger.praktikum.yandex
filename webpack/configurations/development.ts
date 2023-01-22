@@ -27,7 +27,6 @@ const development: Configuration = {
   },
 
   plugins: [
-    new HotModuleReplacementPlugin(),
     new ESLintPlugin({ extensions: ['ts', 'js'], fix: true }),
     new StyleLintPlugin({ extensions: ['scss'], fix: true })
   ]

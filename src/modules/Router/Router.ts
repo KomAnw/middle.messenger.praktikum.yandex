@@ -4,17 +4,11 @@ import { getSectionByPath, locationPaths } from './routes';
 
 class Router {
   static instance: null | Router = null;
-
   private currentRoute: null | Route = null;
-
   private routes: Route[] = [];
-
   private history: History = window.history;
-
   private possiblePaths = locationPaths;
-
   private getSectionByPath = getSectionByPath;
-
   private appRender: Function;
 
   constructor(appRender: Function) {
