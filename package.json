@@ -13,9 +13,9 @@
     "test": "mocha"
   },
   "lint-staged": {
-    "./src/**/*.{js,ts}": [
+    "src/**/!(*test).{js,ts}": [
       "yarn eslint:fix",
-      "yarn test"
+      "yarn run test"
     ]
   },
   "alias": {
