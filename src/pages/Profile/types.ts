@@ -1,5 +1,5 @@
-import {ProfileAvatarProps} from 'src/components/ProfileAvatar/types';
-import {ValidationValues} from 'src/modules/Validator/types';
+import { ProfileAvatarProps } from 'src/components/ProfileAvatar/types';
+import { ValidationValues } from 'src/modules/Validator/types';
 
 export type FieldsProps = {
   fieldName: string;

@@ -1,25 +1,13 @@
 import Login from 'src/pages/Login/Login';
-import {
-  ChangebleProfile,
-  ChangeProfilePassword,
-  CommonProfile,
-} from 'src/pages/Profile/index';
+import { ChangebleProfile, ChangeProfilePassword, CommonProfile } from 'src/pages/Profile/index';
 import Registration from 'src/pages/Registration/Registration';
 import ClientError from 'src/pages/404/index';
-import {Locations, Sections} from './types';
 import ChatElement from 'src/pages/Chat';
-import {getUserInfo} from 'src/api/Auth/Auth';
-import {appStore} from '../Store/Store';
+import { getUserInfo } from 'src/api/Auth/Auth';
+import { Locations, Sections } from './types';
+import { appStore } from '../Store/Store';
 
-const {
-  login,
-  registration,
-  home,
-  chat,
-  profile,
-  changeProfileData,
-  changePassword,
-} = Locations;
+const { login, registration, home, chat, profile, changeProfileData, changePassword } = Locations;
 
 export const locationPaths = [
   registration,
@@ -28,7 +16,7 @@ export const locationPaths = [
   chat,
   profile,
   changeProfileData,
-  changePassword,
+  changePassword
 ];
 
 export const getSectionByPath = async (path: string | undefined) => {
@@ -73,8 +61,7 @@ const ProtectedRoute = async (requiredSection: Sections) => {
 export const goHome = () => window.history.pushState('/', '', '/');
 export const goChat = () => window.history.pushState('/chat', '', '/chat');
 export const goLogin = () => window.history.pushState('/login', '', '/login');
-export const goCommonProfile = () =>
-  window.history.pushState('/profile', '', '/profile');
+export const goCommonProfile = () => window.history.pushState('/profile', '', '/profile');
 export const goChangeProfileData = () =>
   window.history.pushState('/change-profile-data', '', '/change-profile-data');
 export const goChangeProfilePassword = () =>

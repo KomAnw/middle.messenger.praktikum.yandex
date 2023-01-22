@@ -1,13 +1,13 @@
-import {appStore} from 'src/modules/Store/Store';
-import {Props} from 'src/modules/Component/types';
-import template from 'bundle-text:./Chat.html';
-import * as styles from './styles.module.scss';
-import ChatField from '../../components/ChatField/ChatField';
-import {ChatData, ChatProps} from './types';
+import { appStore } from 'src/modules/Store/Store';
+import { Props } from 'src/modules/Component/types';
 import Component from 'src/modules/Component';
 import App from 'src/app/App';
-import {CreateChatPopup} from 'src/components/CreateChatPopup/CreateChatPopup';
+import { CreateChatPopup } from 'src/components/CreateChatPopup/CreateChatPopup';
 import MainChatWindow from 'src/components/MainChatWindow/MainChatWindow';
+import template from './Chat.html';
+import styles from './styles.module.scss';
+import ChatField from '../../components/ChatField/ChatField';
+import { ChatData, ChatProps } from './types';
 
 const getChats = (chatsData: ChatData[]) => {
   // TODO два фрагмента = друг другу
@@ -36,29 +36,29 @@ class ChatComponent<P extends Props> extends Component<P> {
 
   addEventListeners() {
     this.getNode
-        .querySelector('.addChat')
-        ?.addEventListener('click', () => this.renderPopup(CreateChatPopup()));
+      .querySelector('.addChat')
+      ?.addEventListener('click', () => this.renderPopup(CreateChatPopup()));
   }
 
   subscribe() {
     appStore.subscribe('chats', (event) => {
       const nestedComponents = {
         Chats: getChats(event.detail),
-        MainChatWindow: MainChatWindow(),
+        MainChatWindow: MainChatWindow()
       };
-      this.setProps({nestedComponents});
+      this.setProps({ nestedComponents });
     });
   }
 }
 
-const Chat = ({chatsData}: ChatProps) => {
+const Chat = ({ chatsData }: ChatProps) => {
   const componentData = {
-    className: {...styles},
+    className: { ...styles },
     chatsData,
     nestedComponents: {
       Chats: getChats(chatsData),
-      MainChatWindow: MainChatWindow(),
-    },
+      MainChatWindow: MainChatWindow()
+    }
   };
 
   return new ChatComponent(template, componentData).getNode;

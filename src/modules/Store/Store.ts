@@ -1,11 +1,12 @@
-import {AppState, ICustomEvent} from './types';
+import { AppState, ICustomEvent } from './types';
 
 class Store {
   static instance: null | Store = null;
+
   private state = {
     user: null,
     chats: null,
-    selectedChat: null,
+    selectedChat: null
   };
 
   constructor() {
@@ -19,9 +20,7 @@ class Store {
     return this.state;
   }
 
-  public getState<T extends AppState, K extends keyof T>(
-      name: K
-  ): T[K] | undefined | null {
+  public getState<T extends AppState, K extends keyof T>(name: K): T[K] | undefined | null {
     if (name in this.state) {
       return this.state[name as keyof AppState];
     }
@@ -32,7 +31,7 @@ class Store {
     if (flag && typeof this.state[name] === 'object') {
       this.state[name] = {
         ...(this.state[name] as unknown as Object),
-        ...value,
+        ...value
       };
       return true;
     }
@@ -50,7 +49,7 @@ class Store {
     this.state = {
       user: null,
       chats: null,
-      selectedChat: null,
+      selectedChat: null
     };
   }
 
@@ -67,17 +66,11 @@ class Store {
    *  // do work
    * );
    */
-  subscribe = (
-      storeType: keyof AppState,
-      callBack: (event: ICustomEvent) => void
-  ) => {
+  subscribe = (storeType: keyof AppState, callBack: (event: ICustomEvent) => void) => {
     document.addEventListener(storeType, callBack);
   };
 
-  unSubscribe = (
-      storeType: keyof AppState,
-      callBack: EventListenerOrEventListenerObject
-  ) => {
+  unSubscribe = (storeType: keyof AppState, callBack: EventListenerOrEventListenerObject) => {
     document.removeEventListener(storeType, callBack);
   };
 
@@ -85,7 +78,7 @@ class Store {
     const event = new CustomEvent(name, {
       bubbles: true,
       cancelable: true,
-      detail: value,
+      detail: value
     });
 
     return document.dispatchEvent(event);

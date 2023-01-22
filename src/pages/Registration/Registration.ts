@@ -1,10 +1,14 @@
-import { NestedComponents } from "./../../modules/Component/types";
-import template from "bundle-text:./Registration.html";
-import Input from "src/components/Input/Input";
-import Button from "src/components/Button/Button";
-import archive from "src/archive.json";
-import * as styles from "./styles.module.scss";
-import Link from "src/components/Link/Link";
+import Input from 'src/components/Input/Input';
+import Button from 'src/components/Button/Button';
+import archive from 'src/archive.json';
+import Link from 'src/components/Link/Link';
+import Component from 'src/modules/Component';
+import { onSubmitFomsHandler } from 'src/utils/onSubmitFomsHandler';
+import { Props } from 'src/modules/Component/types';
+import { getUserInfo, signup } from 'src/api/Auth/Auth';
+import { appStore } from 'src/modules/Store/Store';
+import { goChat } from 'src/modules/Router/routes';
+import { RegistrationFormData } from './types';
 import {
   button,
   email,
@@ -14,24 +18,21 @@ import {
   password,
   phone,
   secondName,
-  secondPassword,
-} from "./constants";
-import Component from "src/modules/Component";
-import { onSubmitFomsHandler } from "src/utils/onSubmitFomsHandler";
-import { Props } from "src/modules/Component/types";
-import { RegistrationFormData } from "./types";
-import { getUserInfo, signup } from "src/api/Auth/Auth";
-import { appStore } from "src/modules/Store/Store";
-import { goChat } from "src/modules/Router/routes";
+  secondPassword
+} from './constants';
+import styles from './styles.module.scss';
+import template from './Registration.html';
+import { NestedComponents } from '../../modules/Component/types';
 
 class RegistrationComponent<P extends Props> extends Component<P> {
   nestedComponents: NestedComponents;
+
   form: HTMLFormElement;
 
   constructor(template: string, props: P) {
     super(template, props);
     this.nestedComponents = this.getProps.nestedComponents!;
-    this.form = this.getNode.querySelector("form")!;
+    this.form = this.getNode.querySelector('form')!;
   }
 
   componentDidMount(): void {
@@ -47,7 +48,7 @@ class RegistrationComponent<P extends Props> extends Component<P> {
       }
 
       const { ok, json } = await getUserInfo();
-      ok ? appStore.setState("user", json()) && goChat() : null;
+      ok ? appStore.setState('user', json()) && goChat() : null;
     } catch (error) {
       console.log(error);
     }
@@ -67,8 +68,8 @@ const Registration = () => {
       password: Input(password),
       secondPassword: Input(secondPassword),
       button: Button(button),
-      link: Link(link),
-    },
+      link: Link(link)
+    }
   };
 
   return new RegistrationComponent(template, componentData).getNode;

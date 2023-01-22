@@ -5,8 +5,8 @@ export const ProfileFields = [
     inputName: 'email',
     validationRules: {
       required: true,
-      email: true,
-    },
+      email: true
+    }
   },
   {
     fieldName: 'Логин',
@@ -14,8 +14,8 @@ export const ProfileFields = [
     inputName: 'login',
     validationRules: {
       required: true,
-      min: 3,
-    },
+      min: 3
+    }
   },
   {
     fieldName: 'Имя',
@@ -24,8 +24,8 @@ export const ProfileFields = [
     validationRules: {
       required: true,
       min: 3,
-      witoutNumbers: true,
-    },
+      witoutNumbers: true
+    }
   },
   {
     fieldName: 'Фамилия',
@@ -34,8 +34,8 @@ export const ProfileFields = [
     validationRules: {
       required: true,
       min: 3,
-      witoutNumbers: true,
-    },
+      witoutNumbers: true
+    }
   },
   {
     fieldName: 'Имя в чате',
@@ -43,8 +43,8 @@ export const ProfileFields = [
     inputName: 'display_name',
     validationRules: {
       required: true,
-      min: 3,
-    },
+      min: 3
+    }
   },
   {
     fieldName: 'Телефон',
@@ -55,9 +55,9 @@ export const ProfileFields = [
       min: 3,
       max: 12,
       onlyNumbers: true,
-      phone: true,
-    },
-  },
+      phone: true
+    }
+  }
 ];
 
 export const mokDataPassword = [
@@ -67,8 +67,8 @@ export const mokDataPassword = [
     inputName: 'oldPassword',
     validationRules: {
       required: true,
-      min: 3,
-    },
+      min: 3
+    }
   },
   {
     fieldName: 'Новый пароль',
@@ -76,8 +76,8 @@ export const mokDataPassword = [
     inputName: 'newPassword',
     validationRules: {
       required: true,
-      min: 3,
-    },
+      min: 3
+    }
   },
   {
     fieldName: 'Новый пароль (еще раз)',
@@ -85,7 +85,7 @@ export const mokDataPassword = [
     inputName: 'newPassword_again',
     validationRules: {
       required: true,
-      min: 3,
-    },
-  },
+      min: 3
+    }
+  }
 ];

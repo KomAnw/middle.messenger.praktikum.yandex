@@ -6,8 +6,8 @@ export const email = {
   placeholderText: archive.forms.registration.email,
   validationRules: {
     required: true,
-    email: true,
-  },
+    email: true
+  }
 };
 
 export const login = {
@@ -16,8 +16,8 @@ export const login = {
   placeholderText: archive.forms.registration.login,
   validationRules: {
     required: true,
-    min: 3,
-  },
+    min: 3
+  }
 };
 
 export const firstName = {
@@ -27,8 +27,8 @@ export const firstName = {
   validationRules: {
     required: true,
     min: 3,
-    witoutNumbers: true,
-  },
+    witoutNumbers: true
+  }
 };
 
 export const secondName = {
@@ -38,8 +38,8 @@ export const secondName = {
   validationRules: {
     required: true,
     min: 3,
-    witoutNumbers: true,
-  },
+    witoutNumbers: true
+  }
 };
 
 export const phone = {
@@ -51,8 +51,8 @@ export const phone = {
     min: 3,
     max: 12,
     onlyNumbers: true,
-    phone: true,
-  },
+    phone: true
+  }
 };
 
 export const password = {
@@ -61,8 +61,8 @@ export const password = {
   placeholderText: archive.forms.registration.password,
   validationRules: {
     required: true,
-    min: 3,
-  },
+    min: 3
+  }
 };
 
 export const secondPassword = {
@@ -71,15 +71,15 @@ export const secondPassword = {
   placeholderText: archive.forms.registration.secondPassword,
   validationRules: {
     required: true,
-    min: 3,
-  },
+    min: 3
+  }
 };
 
 export const button = {
-  text: archive.forms.registration.button,
+  text: archive.forms.registration.button
 };
 
 export const link = {
   url: '/login',
-  text: archive.forms.registration.link,
+  text: archive.forms.registration.link
 };

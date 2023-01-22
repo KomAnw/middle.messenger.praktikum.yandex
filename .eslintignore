@@ -1,2 +1,6 @@
-/dist
+/build
 /node_modules
+/test
+/static
+/webpack
+/src/**/*.spec.ts

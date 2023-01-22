@@ -1,6 +1,6 @@
-import {Sections} from './types';
+import { Sections } from './types';
 import Route from './Route';
-import {getSectionByPath, locationPaths} from './routes';
+import { getSectionByPath, locationPaths } from './routes';
 
 class Router {
   static instance: null | Router = null;
@@ -43,14 +43,14 @@ class Router {
   }
 
   listen() {
-    const currentRoute = this.currentRoute;
+    const { currentRoute } = this;
     // listen links and buttons
     const callBack = (path: string) => {
       this.loadSection(path);
     };
 
-    const pushState = history.pushState;
-    this.history.pushState = function(path: string) {
+    const { pushState } = history;
+    this.history.pushState = function (path: string) {
       // @ts-expect-error
       // eslint-disable-next-line
       pushState.apply(history, arguments);
