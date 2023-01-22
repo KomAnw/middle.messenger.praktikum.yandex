@@ -4,7 +4,6 @@ import Router from 'src/modules/Router/Router';
 
 class Application {
   private root: HTMLElement;
-
   private popup: HTMLElement;
 
   constructor(rootTag: string) {
