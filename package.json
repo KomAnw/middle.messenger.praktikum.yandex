@@ -13,7 +13,7 @@
     "test": "mocha"
   },
   "lint-staged": {
-    "./src/*.{js,ts}": [
+    "./src/**/*.{js,ts}": [
       "yarn eslint:fix",
       "yarn test"
     ]
